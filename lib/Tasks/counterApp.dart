@@ -37,7 +37,11 @@ class _CounterAppState extends State<CounterApp> {
               height: 400,
               width: 300,
               decoration: BoxDecoration(
-                color: Colors.green,
+                gradient: LinearGradient(
+                  colors: [
+                    Colors.blue,
+                    Colors.green,
+                  ],),
                 borderRadius: BorderRadius.circular(12),
               ),
               child: Center(
@@ -68,10 +72,16 @@ class _CounterAppState extends State<CounterApp> {
                       children: [
 
                         FloatingActionButton(
+                          heroTag: 'IncBtn',
                           onPressed: () {
                             return Increment();
                           },
-                          child: Icon(Icons.add),
+                          backgroundColor: Colors.redAccent,
+                          foregroundColor: Colors.white,
+                          elevation: 8,
+                          tooltip: 'Add Number',
+                          splashColor: Colors.white24,
+                          child: const Icon(Icons.add),
                         ),
                         Text("Add", style: TextStyle(
                             color: Colors.black,
@@ -84,10 +94,16 @@ class _CounterAppState extends State<CounterApp> {
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
                         FloatingActionButton(
+                          heroTag: 'clearBtn',
                           onPressed: () {
                             return Clear();
                           },
-                          child: Icon(Icons.clear),
+                          backgroundColor: Colors.redAccent,
+                          foregroundColor: Colors.white,
+                          elevation: 8,
+                          tooltip: 'Clear Number',
+                          splashColor: Colors.white24,
+                          child: const Icon(Icons.clear),
                         ),
                         Text("CLear", style: TextStyle(
                             color: Colors.black,
@@ -100,10 +116,16 @@ class _CounterAppState extends State<CounterApp> {
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
                         FloatingActionButton(
+                          heroTag: 'DecBtn',
                           onPressed: () {
                             return Decrement();
                           },
-                          child: Icon(Icons.remove),
+                          backgroundColor: Colors.redAccent,
+                          foregroundColor: Colors.white,
+                          elevation: 8,
+                          tooltip: 'Sub Number',
+                          splashColor: Colors.white24,
+                          child: const Icon(Icons.remove),
                         ),
                         Text("Sub", style: TextStyle(
                             color: Colors.black,
