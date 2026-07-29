@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'tasks/counterApp.dart';
+import 'Tasks/CounterApp/counterApp.dart';
 
 class TaskItem {
   final String title;
