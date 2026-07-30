@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'Tasks/CounterApp/counterApp.dart';
 import 'Tasks/Stack/stack.dart';
+import 'Tasks/ProfileUI/ProfileUi.dart';
 
 class TaskItem {
   final String title;
@@ -12,4 +13,5 @@ class TaskItem {
 final List<TaskItem> tasks = [
   TaskItem(title: 'Counter App', page: const CounterApp()),
   TaskItem(title: 'Stack', page: const StackDetails()),
+  TaskItem(title: "Profile UI", page: Profileui())
 ];
