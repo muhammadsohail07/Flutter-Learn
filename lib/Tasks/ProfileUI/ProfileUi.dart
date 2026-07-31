@@ -79,7 +79,7 @@ class Profileui extends StatelessWidget {
                     BoxShadow(
                       color: Colors.black.withOpacity(0.05),
                       blurRadius: 8,
-                      offset: const Offset(0, 3),
+                      offset: const Offset(0, 8),
                     ),
                   ],
                 ),
@@ -191,7 +191,7 @@ class _VerticalDivider extends StatelessWidget {
   }
 }
 
-// ---------- Profile Tile Widget (Row: icon + title + arrow) ----------
+
 class _ProfileTile extends StatelessWidget {
   final IconData icon;
   final String title;
