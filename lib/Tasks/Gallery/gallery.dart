@@ -20,12 +20,8 @@ class GalleryUI extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Photo Gallery',
-      theme: ThemeData(primarySwatch: Colors.blue),
-      home: Scaffold(
-        appBar: AppBar(title: const Text('Photo Gallery'), centerTitle: true),
+    return  Scaffold(
+        appBar: AppBar(title: Text('Stack')),
         body: GridView.builder(
           padding: const EdgeInsets.all(10),
 
@@ -65,7 +61,6 @@ class GalleryUI extends StatelessWidget {
             );
           },
         ),
-      ),
     );
   }
 }
