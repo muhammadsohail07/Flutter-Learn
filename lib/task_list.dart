@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_series/Tasks/listview.dart';
 import 'Tasks/CounterApp/counterApp.dart';
 import 'Tasks/Stack/stack.dart';
 import 'Tasks/ProfileUI/ProfileUi.dart';
@@ -17,5 +18,6 @@ final List<TaskItem> tasks = [
   TaskItem(title: 'Stack', page: const StackDetails()),
   TaskItem(title: "Profile UI", page: Profileui()),
   TaskItem(title: "Gallery", page: GalleryUI()),
-  TaskItem(title: "PremiumGrid", page: PremiumGrid())
+  TaskItem(title: "PremiumGrid", page: PremiumGrid()),
+  TaskItem(title: "listview Examples", page: listviewexample()),
 ];
