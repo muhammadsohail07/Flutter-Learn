@@ -5,6 +5,7 @@ import 'Tasks/Stack/stack.dart';
 import 'Tasks/ProfileUI/ProfileUi.dart';
 import 'Tasks/Gallery/gallery.dart';
 import 'Tasks/Gallery/PremiumGrid.dart';
+import 'Tasks/widgets page.dart';
 
 class TaskItem {
   final String title;
@@ -20,4 +21,5 @@ final List<TaskItem> tasks = [
   TaskItem(title: "Gallery", page: GalleryUI()),
   TaskItem(title: "PremiumGrid", page: PremiumGrid()),
   TaskItem(title: "listview Examples", page: listviewexample()),
+  TaskItem(title: "PremiumHomePage", page: PremiumHomePage()),
 ];
