@@ -26,6 +26,7 @@ class PremiumHomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(title: Text("PremiumHomePage"),),
       body: SafeArea(
         child: CustomScrollView(
           slivers: [
