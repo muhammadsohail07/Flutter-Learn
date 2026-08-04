@@ -8,6 +8,7 @@ import 'Tasks/Gallery/PremiumGrid.dart';
 import 'Tasks/widgets page.dart';
 import 'Tasks/localImage.dart';
 import 'Tasks/NetworkImage.dart';
+import 'Tasks/cachednetworkImage.dart';
 class TaskItem {
   final String title;
   final Widget page;
@@ -25,4 +26,5 @@ final List<TaskItem> tasks = [
   TaskItem(title: "PremiumHomePage", page: PremiumHomePage()),
   TaskItem(title: "Local Image", page: Localimages()),
   TaskItem(title: "Network Image", page: Networkimages()),
+  TaskItem(title: " Cached Network Image", page: CachedNetworkimages()),
 ];

@@ -7,7 +7,7 @@ class Networkimages extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Local Images"),
+        title: const Text("Network Images"),
       ),
       body: Center(
         child: Image(
