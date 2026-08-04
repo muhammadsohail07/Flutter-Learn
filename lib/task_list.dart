@@ -7,7 +7,7 @@ import 'Tasks/Gallery/gallery.dart';
 import 'Tasks/Gallery/PremiumGrid.dart';
 import 'Tasks/widgets page.dart';
 import 'Tasks/localImage.dart';
-
+import 'Tasks/NetworkImage.dart';
 class TaskItem {
   final String title;
   final Widget page;
@@ -23,5 +23,6 @@ final List<TaskItem> tasks = [
   TaskItem(title: "PremiumGrid", page: PremiumGrid()),
   TaskItem(title: "listview Examples", page: listviewexample()),
   TaskItem(title: "PremiumHomePage", page: PremiumHomePage()),
-  TaskItem(title: "Local Image", page: Localimages())
+  TaskItem(title: "Local Image", page: Localimages()),
+  TaskItem(title: "Network Image", page: Networkimages()),
 ];
