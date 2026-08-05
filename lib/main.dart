@@ -53,7 +53,7 @@ class Home extends StatelessWidget {
                 vertical: 8,
               ),
               child: ListTile(
-                hoverColor: Colors.green,
+                hoverColor: Colors.grey,
                 title: Text(task.title),
                 trailing: const Icon(Icons.arrow_forward_ios),
                 onTap: () {
