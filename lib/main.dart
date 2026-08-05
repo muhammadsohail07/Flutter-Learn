@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'task_list.dart';
 
 void main() {
@@ -11,8 +12,21 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      color: Colors.white,
       debugShowCheckedModeBanner: false,
+      theme: ThemeData(
+        useMaterial3: true,
+        textTheme: GoogleFonts.poppinsTextTheme(),
+        appBarTheme: AppBarTheme(
+          titleTextStyle: GoogleFonts.poppins(
+            fontSize: 20,
+            fontWeight: FontWeight.w600,
+            color: Colors.black,
+          ),
+          backgroundColor: Colors.white,
+          foregroundColor: Colors.black,
+          elevation: 0,
+        ),
+      ),
       home: const Home(),
     );
   }
@@ -24,7 +38,9 @@ class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('My Flutter Practice')),
+      appBar: AppBar(
+        title: const Text('My Flutter Practice'),
+      ),
       body: Container(
         color: Colors.white,
         child: ListView.builder(
@@ -32,16 +48,20 @@ class Home extends StatelessWidget {
           itemBuilder: (context, index) {
             final task = tasks[index];
             return Card(
-
-              margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+              margin: const EdgeInsets.symmetric(
+                horizontal: 16,
+                vertical: 8,
+              ),
               child: ListTile(
-                hoverColor: Colors.green ,
+                hoverColor: Colors.green,
                 title: Text(task.title),
                 trailing: const Icon(Icons.arrow_forward_ios),
                 onTap: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => task.page),
+                    MaterialPageRoute(
+                      builder: (context) => task.page,
+                    ),
                   );
                 },
               ),
