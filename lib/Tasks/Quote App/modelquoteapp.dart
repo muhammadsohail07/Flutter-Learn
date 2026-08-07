@@ -1,9 +1,10 @@
-class quote {
+class Quote {
   final String text;
   final String from;
 
-  quote({required this .text, required this .from});
-  factory quote.fromJson(Map<String, dynamic>json){
-    return quote(text: json["text"], from: json["from"]);
+  Quote({required this.text, required this.from});
+
+  factory Quote.fromJson(Map<String, dynamic> json) {
+    return Quote(text: json["text"], from: json["from"]);
   }
 }

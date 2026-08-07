@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_series/Tasks/Quote App/quoteapp.dart';
 import 'package:flutter_series/Tasks/Quote App/modelquoteapp.dart';
+
 class QuoteWidget extends StatelessWidget {
   final Quote quote;
   const QuoteWidget({Key? key, required this.quote}) : super(key: key);

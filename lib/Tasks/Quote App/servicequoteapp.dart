@@ -1,6 +1,6 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import 'package:flutter_series/Tasks/Quote%20App/modelquoteapp.dart';
+import 'package:flutter_series/Tasks/Quote App/modelquoteapp.dart';
 
 class ServiceQuoteApp {
   Future<List<Quote>> getQuotes() async {
@@ -10,7 +10,6 @@ class ServiceQuoteApp {
 
     if (response.statusCode == 200) {
       final decoded = jsonDecode(response.body);
-      // JSONBin data ko 'record' key ke andar wrap karta hai
       final List<dynamic> jsonList = decoded['record'];
       return jsonList.map<Quote>((json) => Quote.fromJson(json)).toList();
     } else {
