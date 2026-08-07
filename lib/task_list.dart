@@ -12,6 +12,7 @@ import 'Tasks/cachednetworkImage.dart';
 import 'Tasks/LocalFont.dart';
 import 'Tasks/JSON/localjson.dart';
 import 'Tasks/JSON/onlinejson.dart';
+import 'Tasks/Quote App/quoteapp.dart';
 class TaskItem {
   final String title;
   final Widget page;
@@ -32,5 +33,7 @@ final List<TaskItem> tasks = [
   TaskItem(title: " Cached Network Image", page: CachedNetworkimages()),
   TaskItem(title: "Local font", page: Localfont()),
   TaskItem(title: "Local JSON", page: Localjson()),
-  TaskItem(title: "Online JSON", page: onlinejson())
+  TaskItem(title: "Online JSON", page: onlinejson()),
+
+  TaskItem(title: "Quote App", page: Quoteapp()),
 ];
