@@ -1,20 +1,46 @@
-import 'dart:convert';
-import 'package:http/http.dart' as http;
-import 'package:flutter_series/Tasks/Quote%20App/modelquoteapp.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_series/Tasks/Quote App/servicequoteapp.dart';
+import 'package:flutter_series/Tasks/Quote App/quotewidget.dart';
+import 'package:flutter_series/Tasks/Quote App/modelquoteapp.dart';
 
-class ServiceQuoteApp {
-  Future<List<Quote>> getQuotes() async {
-    final response = await http.get(
-      Uri.parse("https://api.jsonbin.io/v3/b/6a74c9b3f5f4af5e29f3e532"),
+
+
+class MyApp extends StatelessWidget {
+  const MyApp({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return  Scaffold(
+        backgroundColor: const Color(0xFFF5F6FA),
+        appBar: AppBar(
+          title: const Text('Daily Quotes'),
+          centerTitle: true,
+          elevation: 0,
+          backgroundColor: const Color(0xFF6A11CB),
+        ),
+        body: FutureBuilder<List<quote>>(
+          future: ServiceQuoteApp().getQuotes(),
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return const Center(child: CircularProgressIndicator());
+            }
+            if (snapshot.hasError) {
+              return Center(child: Text('Error: ${snapshot.error}'));
+            }
+            if (snapshot.hasData) {
+              final quotes = snapshot.data!;
+              return ListView.builder(
+                padding: const EdgeInsets.symmetric(vertical: 10),
+                itemCount: quotes.length,
+                itemBuilder: (context, index) {
+                  return QuoteWidget(quote: quotes[index]);
+                },
+              );
+            }
+            return const Center(child: Text('No data available'));
+          },
+
+      ),
     );
-
-    if (response.statusCode == 200) {
-      final decoded = jsonDecode(response.body);
-      // JSONBin data ko 'record' key ke andar wrap karta hai
-      final List<dynamic> jsonList = decoded['record'];
-      return jsonList.map<Quote>((json) => Quote.fromJson(json)).toList();
-    } else {
-      throw Exception('Failed to load quotes');
-    }
   }
 }
