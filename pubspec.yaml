@@ -15,6 +15,7 @@ dependencies:
   cached_network_image: ^3.4.1
   google_fonts: ^8.2.1
   http: ^1.6.0
+  audioplayers: ^6.7.1
 
 dev_dependencies:
   flutter_test:
@@ -29,6 +30,7 @@ flutter:
     - Assets/images.jpeg
     - Assets/image/profile.jpeg
     - Assets/Data/info.json
+    - Assets/Audio/Kalyani.mp3
   fonts:
     - family: Roboto
       fonts:
