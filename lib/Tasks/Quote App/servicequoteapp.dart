@@ -5,7 +5,7 @@ import 'package:flutter_series/Tasks/Quote App/modelquoteapp.dart';
 class ServiceQuoteApp {
   Future<List<Quote>> getQuotes() async {
     final response = await http.get(
-      Uri.parse("https://api.jsonbin.io/v3/b/6a74c9b3f5f4af5e29f3e532"),
+      Uri.parse("https://api.jsonbin.io/v3/b/6a7617e4da38895dfec71e24"),
     );
 
     if (response.statusCode == 200) {
