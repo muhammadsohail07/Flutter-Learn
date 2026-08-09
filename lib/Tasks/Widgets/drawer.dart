@@ -6,8 +6,8 @@ class MyDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Click End Drawer Icon =>>>>')),
-      drawer:  MyDrawerWidget(),
+      appBar: AppBar(title: const Text(' Drawer')),
+      endDrawer:  MyDrawerWidget(),
       body: const Center(child: Text('Home Screen')),
     );
   }

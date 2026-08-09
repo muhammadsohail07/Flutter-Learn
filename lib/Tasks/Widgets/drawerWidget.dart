@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import 'package:flutter_series/main.dart';
 class MyDrawerWidget extends StatelessWidget {
   const MyDrawerWidget({super.key});
 
@@ -16,7 +16,18 @@ class MyDrawerWidget extends StatelessWidget {
               style: TextStyle(color: Colors.white, fontSize: 24),
             ),
           ),
-          ListTile(title: const Text('Home'), onTap: () {}),
+          ListTile(
+            leading: Icon(Icons.home),
+            title: Text('Home'),
+            subtitle: Text('Go to homepage'),
+            trailing: Icon(Icons.arrow_forward_ios),
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => Home()),
+              );
+            },
+          ),
           ListTile(title: const Text('Categories'), onTap: () {}),
           ListTile(title: const Text('Orders'), onTap: () {}),
           ListTile(title: const Text('Wishlist'), onTap: () {}),
