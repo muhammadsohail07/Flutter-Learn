@@ -15,6 +15,7 @@ import 'Tasks/JSON/onlinejson.dart';
 import 'Tasks/Quote App/quoteapp.dart';
 import 'Tasks/AudioApp/audioapp.dart';
 import 'Tasks/Widgets/drawer.dart';
+import 'Tasks/Widgets/bottomnavbar.dart';
 class TaskItem {
   final String title;
   final Widget page;
@@ -39,5 +40,6 @@ final List<TaskItem> tasks = [
 
   TaskItem(title: "Quote App", page: Quoteapp()),
   TaskItem(title: "Audio App", page: AudioApp()),
-  TaskItem(title: "Drawer", page: MyDrawer())
+  TaskItem(title: "Drawer", page: MyDrawer()),
+  TaskItem(title: "BottomNavBar", page: Bottomnavbar()),
 ];
