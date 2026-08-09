@@ -39,5 +39,5 @@ final List<TaskItem> tasks = [
 
   TaskItem(title: "Quote App", page: Quoteapp()),
   TaskItem(title: "Audio App", page: AudioApp()),
-  TaskItem(title: "Drawer", page: drawer())
+  TaskItem(title: "Drawer", page: MyDrawer())
 ];
