@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_series/main.dart';
+import 'package:flutter_series/Tasks/Widgets/snackbar.dart';
 
 class MyDrawerWidget extends StatelessWidget {
   const MyDrawerWidget({super.key});
@@ -38,9 +39,9 @@ class MyDrawerWidget extends StatelessWidget {
             title: const Text('Wishlist'),
             onTap: () {
               Navigator.pop(context); // drawer close
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(content: Text("Wishlist screen not ready")),
-              );
+
+              showAppSnackBar(context, 'Product added to cart');
+              showAppSnackBar(context, 'Something went wrong', isError: true);
             },
           ),
           ListTile(title: const Text('Settings'), onTap: () {}),
