@@ -17,6 +17,7 @@ import 'Tasks/AudioApp/audioapp.dart';
 import 'Tasks/Widgets/drawer.dart';
 import 'Tasks/Widgets/bottomnavbar.dart';
 import 'Tasks/Widgets/alert .dart';
+import 'Tasks/Widgets/contact/contactapp.dart';
 class TaskItem {
   final String title;
   final Widget page;
@@ -43,5 +44,6 @@ final List<TaskItem> tasks = [
   TaskItem(title: "Audio App", page: AudioApp()),
   TaskItem(title: "Drawer", page: MyDrawer()),
   TaskItem(title: "BottomNavBar", page: Bottomnavbar()),
-  TaskItem(title: "Alert", page: Alert())
+  TaskItem(title: "Alert", page: Alert()),
+  TaskItem(title: "Contact App", page: ContactList())
 ];
