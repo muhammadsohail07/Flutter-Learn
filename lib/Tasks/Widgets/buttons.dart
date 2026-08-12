@@ -58,6 +58,26 @@ class materialButton extends StatelessWidget {
             onPressed: () {},
             icon: Icon(Icons.info),
             tooltip: 'More Info',
+          ),
+          SizedBox(height: 10,),
+          OutlinedButton(
+            onPressed: () {},
+            style: OutlinedButton.styleFrom(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(18.0),
+              ),
+            ),
+            child: Text('Rounded Corners'),
+          )
+          ,
+          SizedBox(height: 10,),
+          TextButton(
+            onPressed: () {},
+            style: TextButton.styleFrom(
+              foregroundColor: Colors.black,
+              backgroundColor: Colors.yellow,
+            ),
+            child: Text('Custom Style'),
           )
         ],
       ),
