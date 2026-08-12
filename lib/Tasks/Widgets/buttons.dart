@@ -33,6 +33,25 @@ class materialButton extends StatelessWidget {
               ),
             ),
             child: Text('Rounded Corners'),
+          ),
+          SizedBox(height: 10,),
+          FloatingActionButton(
+            onPressed: () {},
+            backgroundColor: Colors.green,
+            child: Icon(Icons.phone),
+          ),
+          SizedBox(height: 10,),
+          Text("MINI FAB"),
+          FloatingActionButton(
+            mini: true,
+            onPressed: () {},
+            child: Icon(Icons.star),
+          ),
+          SizedBox(height: 10,),
+          FloatingActionButton.extended(
+            onPressed: () {},
+            icon: Icon(Icons.add),
+            label: Text('Add Item'),
           )
         ],
       ),
