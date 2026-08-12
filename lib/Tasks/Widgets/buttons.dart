@@ -52,6 +52,12 @@ class materialButton extends StatelessWidget {
             onPressed: () {},
             icon: Icon(Icons.add),
             label: Text('Add Item'),
+          ),
+          SizedBox(height: 10,),
+          IconButton(
+            onPressed: () {},
+            icon: Icon(Icons.info),
+            tooltip: 'More Info',
           )
         ],
       ),
