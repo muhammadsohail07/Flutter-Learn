@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -16,6 +15,7 @@ class _FormScreenState extends State<FormScreen>
   final _lastNameController = TextEditingController();
 
   bool _isSubmitting = false;
+  bool isAccepted = false;
 
   static const _accent = Color(0xFF1DB954); // Spotify green
   static const _bg = Color(0xFF121212);
@@ -33,6 +33,13 @@ class _FormScreenState extends State<FormScreen>
   Future<void> _submitForm() async {
     FocusScope.of(context).unfocus();
     if (!_formKey.currentState!.validate()) return;
+
+    if (!isAccepted) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Please accept the terms to continue')),
+      );
+      return;
+    }
 
     HapticFeedback.lightImpact();
     setState(() => _isSubmitting = true);
@@ -160,6 +167,7 @@ class _FormScreenState extends State<FormScreen>
                           return null;
                         },
                       ),
+
                       const SizedBox(height: 16),
                       TextFormField(
                         controller: _lastNameController,
@@ -220,13 +228,20 @@ class _FormScreenState extends State<FormScreen>
 
                 const SizedBox(height: 16),
                 Center(
-                  child: Text(
-                    'By continuing you agree to our Terms & Privacy Policy',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      color: _hintColor.withOpacity(0.7),
-                      fontSize: 11,
+                  child: CheckboxListTile(
+                    title: const Text(
+                      "Accept Terms & Conditions",
+                      style: TextStyle(color: Colors.white, fontSize: 14),
                     ),
+                    value: isAccepted,
+                    activeColor: _accent,
+                    checkColor: Colors.black,
+                    controlAffinity: ListTileControlAffinity.leading,
+                    onChanged: (bool? value) {
+                      setState(() {
+                        isAccepted = value!;
+                      });
+                    },
                   ),
                 ),
               ],
