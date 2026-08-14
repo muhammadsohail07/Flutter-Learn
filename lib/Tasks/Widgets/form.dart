@@ -27,6 +27,7 @@ class _FormScreenState extends State<FormScreen>
   bool isAccepted = false;
   bool notificationsEnabled = true;
   Difficulty? _selectedDifficulty;
+  DateTime? _selectedDate;
 
   static const _accent = Color(0xFF1DB954); // Spotify green
   static const _bg = Color(0xFF121212);
@@ -41,9 +42,52 @@ class _FormScreenState extends State<FormScreen>
     super.dispose();
   }
 
+  Future<void> _pickDate() async {
+    final picked = await showDatePicker(
+      context: context,
+      initialDate: _selectedDate ?? DateTime.now(),
+      firstDate: DateTime(1950),
+      lastDate: DateTime(2100),
+      builder: (context, child) {
+        return Theme(
+          data: Theme.of(context).copyWith(
+            colorScheme: const ColorScheme.dark(
+              primary: _accent,
+              onPrimary: Colors.black,
+              surface: _cardBg,
+              onSurface: Colors.white,
+            ),
+            dialogTheme: const DialogThemeData(backgroundColor: _bg),
+          ),
+          child: child!,
+        );
+      },
+    );
+    if (picked != null) {
+      setState(() => _selectedDate = picked);
+    }
+  }
+
+  String get _dateLabel {
+    if (_selectedDate == null) return 'Select date of birth';
+    final d = _selectedDate!;
+    const months = [
+      'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+      'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec',
+    ];
+    return '${d.day} ${months[d.month - 1]} ${d.year}';
+  }
+
   Future<void> _submitForm() async {
     FocusScope.of(context).unfocus();
     if (!_formKey.currentState!.validate()) return;
+
+    if (_selectedDate == null) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Please select your date of birth')),
+      );
+      return;
+    }
 
     if (_selectedDifficulty == null) {
       ScaffoldMessenger.of(context).showSnackBar(
@@ -203,6 +247,26 @@ class _FormScreenState extends State<FormScreen>
                           }
                           return null;
                         },
+                      ),
+                      const SizedBox(height: 16),
+                      InkWell(
+                        onTap: _pickDate,
+                        borderRadius: BorderRadius.circular(14),
+                        child: InputDecorator(
+                          decoration: _inputDecoration(
+                            'Date of birth',
+                            'Select date',
+                            Icons.calendar_today_outlined,
+                          ),
+                          child: Text(
+                            _dateLabel,
+                            style: TextStyle(
+                              color: _selectedDate == null
+                                  ? const Color(0xFF5C5C5C)
+                                  : Colors.white,
+                            ),
+                          ),
+                        ),
                       ),
                     ],
                   ),
