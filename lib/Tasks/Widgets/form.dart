@@ -1,6 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+enum Difficulty {
+  easy('Easy'),
+  medium('Medium'),
+  hard('Hard');
+
+  final String text;
+  const Difficulty(this.text);
+}
+
 class FormScreen extends StatefulWidget {
   const FormScreen({super.key});
 
@@ -16,6 +25,7 @@ class _FormScreenState extends State<FormScreen>
 
   bool _isSubmitting = false;
   bool isAccepted = false;
+  Difficulty? _selectedDifficulty;
 
   static const _accent = Color(0xFF1DB954); // Spotify green
   static const _bg = Color(0xFF121212);
@@ -33,6 +43,13 @@ class _FormScreenState extends State<FormScreen>
   Future<void> _submitForm() async {
     FocusScope.of(context).unfocus();
     if (!_formKey.currentState!.validate()) return;
+
+    if (_selectedDifficulty == null) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Please select a difficulty')),
+      );
+      return;
+    }
 
     if (!isAccepted) {
       ScaffoldMessenger.of(context).showSnackBar(
@@ -56,7 +73,7 @@ class _FormScreenState extends State<FormScreen>
       context,
       PageRouteBuilder(
         transitionDuration: const Duration(milliseconds: 400),
-        pageBuilder: (_, animation, __) => FadeTransition(
+        pageBuilder: (_, animation, _) => FadeTransition(
           opacity: animation,
           child: SecondScreen(firstName: firstName, lastName: lastName),
         ),
@@ -114,7 +131,7 @@ class _FormScreenState extends State<FormScreen>
                 Container(
                   padding: const EdgeInsets.all(14),
                   decoration: BoxDecoration(
-                    color: _accent.withOpacity(0.15),
+                    color: _accent.withValues(alpha: 0.15),
                     borderRadius: BorderRadius.circular(16),
                   ),
                   child: const Icon(Icons.person_outline,
@@ -190,6 +207,45 @@ class _FormScreenState extends State<FormScreen>
                   ),
                 ),
 
+                const SizedBox(height: 24),
+
+                const Text(
+                  'Select difficulty',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 15,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+                const SizedBox(height: 10),
+                Container(
+                  decoration: BoxDecoration(
+                    color: _cardBg,
+                    borderRadius: BorderRadius.circular(20),
+                    border: Border.all(color: Colors.white10),
+                  ),
+                  child: RadioGroup<Difficulty>(
+                    groupValue: _selectedDifficulty,
+                    onChanged: (value) {
+                      setState(() {
+                        _selectedDifficulty = value;
+                      });
+                    },
+                    child: Column(
+                      children: Difficulty.values
+                          .map((option) => RadioListTile<Difficulty>(
+                        title: Text(
+                          option.text,
+                          style: const TextStyle(color: Colors.white),
+                        ),
+                        value: option,
+                        activeColor: _accent,
+                      ))
+                          .toList(),
+                    ),
+                  ),
+                ),
+
                 const SizedBox(height: 32),
 
                 SizedBox(
@@ -199,7 +255,7 @@ class _FormScreenState extends State<FormScreen>
                     onPressed: _isSubmitting ? null : _submitForm,
                     style: ElevatedButton.styleFrom(
                       backgroundColor: _accent,
-                      disabledBackgroundColor: _accent.withOpacity(0.5),
+                      disabledBackgroundColor: _accent.withValues(alpha: 0.5),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(28),
                       ),
@@ -279,7 +335,7 @@ class SecondScreen extends StatelessWidget {
               Container(
                 padding: const EdgeInsets.all(24),
                 decoration: BoxDecoration(
-                  color: _accent.withOpacity(0.15),
+                  color: _accent.withValues(alpha: 0.15),
                   shape: BoxShape.circle,
                 ),
                 child: const Icon(Icons.check_rounded,
