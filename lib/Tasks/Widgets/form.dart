@@ -25,6 +25,7 @@ class _FormScreenState extends State<FormScreen>
 
   bool _isSubmitting = false;
   bool isAccepted = false;
+  bool notificationsEnabled = true;
   Difficulty? _selectedDifficulty;
 
   static const _accent = Color(0xFF1DB954); // Spotify green
@@ -243,6 +244,35 @@ class _FormScreenState extends State<FormScreen>
                       ))
                           .toList(),
                     ),
+                  ),
+                ),
+
+                const SizedBox(height: 24),
+
+                Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  decoration: BoxDecoration(
+                    color: _cardBg,
+                    borderRadius: BorderRadius.circular(20),
+                    border: Border.all(color: Colors.white10),
+                  ),
+                  child: SwitchListTile(
+                    title: const Text(
+                      'Enable notifications',
+                      style: TextStyle(color: Colors.white, fontSize: 14),
+                    ),
+                    subtitle: const Text(
+                      'Get updates about your account',
+                      style: TextStyle(color: _hintColor, fontSize: 12),
+                    ),
+                    value: notificationsEnabled,
+                    activeColor: _accent,
+                    contentPadding: EdgeInsets.zero,
+                    onChanged: (value) {
+                      setState(() {
+                        notificationsEnabled = value;
+                      });
+                    },
                   ),
                 ),
 
