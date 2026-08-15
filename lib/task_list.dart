@@ -21,6 +21,7 @@ import 'Tasks/Widgets/contact/contactapp.dart';
 import 'Tasks/Widgets/contact/contactform.dart';
 import 'Tasks/Widgets/buttons.dart';
 import 'Tasks/Widgets/form.dart';
+import 'Tasks/Navigation/simplenavigation.dart';
 class TaskItem {
   final String title;
   final Widget page;
@@ -51,5 +52,6 @@ final List<TaskItem> tasks = [
   TaskItem(title: "Contact App", page: ContactList()),
   TaskItem(title: "Contact Form ", page: ContactFormScreen()),
   TaskItem(title: "Material Button", page: materialButton()),
-  TaskItem(title: "Form", page: FormScreen())
+  TaskItem(title: "Form", page: FormScreen()),
+  TaskItem(title: "Navigation", page: MainScreen()),
 ];
