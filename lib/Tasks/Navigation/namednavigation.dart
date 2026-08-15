@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 
+
 class MyApps extends StatelessWidget {
   const MyApps({super.key});
 
@@ -11,6 +12,7 @@ class MyApps extends StatelessWidget {
       routes: {
         '/': (context) => const MainScreen(),
         '/second': (context) => const SecondScreen(),
+        '/third': (context) => const ThirdScreen(),
       },
     );
   }
@@ -28,10 +30,8 @@ class MainScreen extends StatelessWidget {
       body: Center(
         child: ElevatedButton(
           onPressed: () {
-            // Step 2: Moving to the New Screen
-            Navigator.of(context).push(
-              MaterialPageRoute(builder: (context) => const SecondScreen()),
-            );
+            // Named route se navigate
+            Navigator.pushNamed(context, '/second');
           },
           child: const Text('Go to Second Screen'),
         ),
@@ -49,6 +49,41 @@ class SecondScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Second Screen"),
+      ),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            ElevatedButton(
+              onPressed: () {
+                // Navigating Back
+                Navigator.pop(context);
+              },
+              child: const Text("Go Back"),
+            ),
+            const SizedBox(height: 12),
+            ElevatedButton(
+              onPressed: () {
+                // Named route se navigate
+                Navigator.pushNamed(context, '/third');
+              },
+              child: const Text("Go to Third Screen"),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class ThirdScreen extends StatelessWidget {
+  const ThirdScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text("Third Screen"),
       ),
       body: Center(
         child: ElevatedButton(
