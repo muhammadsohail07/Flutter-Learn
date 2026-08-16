@@ -24,6 +24,7 @@ import 'Tasks/Widgets/form.dart';
 import 'Tasks/Navigation/simplenavigation.dart';
 import 'Tasks/Navigation/passingdata.dart';
 import 'Tasks/Navigation/product.dart';
+import 'Tasks/Navigation/returndata.dart';
 
 class TaskItem {
   final String title;
@@ -57,5 +58,6 @@ final List<TaskItem> tasks = [
   TaskItem(title: "Form", page: FormScreen()),
   TaskItem(title: "Navigation", page: MainScreen()),
   TaskItem(title: "Passing Data", page: EnterNameScreen()),
-  TaskItem(title: "Product Details", page: HomeProductScreen())
+  TaskItem(title: "Product Details", page: HomeProductScreen()),
+  TaskItem(title: "Return data", page: PizzaHomeScreen())
 ];
