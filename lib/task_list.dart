@@ -22,6 +22,7 @@ import 'Tasks/Widgets/contact/contactform.dart';
 import 'Tasks/Widgets/buttons.dart';
 import 'Tasks/Widgets/form.dart';
 import 'Tasks/Navigation/simplenavigation.dart';
+import 'Tasks/Navigation/passingdata.dart';
 class TaskItem {
   final String title;
   final Widget page;
@@ -43,7 +44,6 @@ final List<TaskItem> tasks = [
   TaskItem(title: "Local font", page: Localfont()),
   TaskItem(title: "Local JSON", page: Localjson()),
   TaskItem(title: "Online JSON", page: onlinejson()),
-
   TaskItem(title: "Quote App", page: Quoteapp()),
   TaskItem(title: "Audio App", page: AudioApp()),
   TaskItem(title: "Drawer", page: MyDrawer()),
@@ -54,4 +54,5 @@ final List<TaskItem> tasks = [
   TaskItem(title: "Material Button", page: materialButton()),
   TaskItem(title: "Form", page: FormScreen()),
   TaskItem(title: "Navigation", page: MainScreen()),
+  TaskItem(title: "Passing Data", page: EnterNameScreen()),
 ];
