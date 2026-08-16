@@ -1,21 +1,6 @@
 import 'package:flutter/material.dart';
 
-class NamedRoute extends StatelessWidget {
-  const NamedRoute({super.key});
 
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Product App',
-      theme: ThemeData(primarySwatch: Colors.green),
-      initialRoute: '/',
-      routes: {
-        '/': (context) => const HomeProductScreen(),
-        '/product': (context) => const ProductScreen(),
-      },
-    );
-  }
-}
 
 class Product {
   String name;
@@ -68,7 +53,12 @@ class HomeProductScreen extends StatelessWidget {
               subtitle: Text('\$${product.Price}'),
               trailing: const Icon(Icons.arrow_forward_ios, size: 16),
               onTap: () {
-                Navigator.pushNamed(context, '/product', arguments: product);
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => ProductScreen(product: product),
+                  ),
+                );
               },
             ),
           );
@@ -79,12 +69,11 @@ class HomeProductScreen extends StatelessWidget {
 }
 
 class ProductScreen extends StatelessWidget {
-  const ProductScreen({super.key});
+  final Product product;
+  const ProductScreen({super.key, required this.product});
 
   @override
   Widget build(BuildContext context) {
-    final Product product = ModalRoute.of(context)!.settings.arguments as Product;
-
     return Scaffold(
       backgroundColor: Colors.grey.shade50,
       appBar: AppBar(
@@ -131,7 +120,7 @@ class ProductScreen extends StatelessWidget {
               ),
               const SizedBox(height: 8),
               Text(
-                '\$${product.Price}',
+                '\Rs.${product.Price}',
                 style: const TextStyle(
                   fontSize: 20,
                   color: Colors.green,
