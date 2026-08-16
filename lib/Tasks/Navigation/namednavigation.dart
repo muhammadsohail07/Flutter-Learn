@@ -33,7 +33,7 @@ class MainScreen extends StatelessWidget {
             // Named route se navigate
             Navigator.pushNamed(context, '/second');
           },
-          child: const Text('Go to Second Screen'),
+          child: const Text('Goto SecondScreen'),
         ),
       ),
     );
