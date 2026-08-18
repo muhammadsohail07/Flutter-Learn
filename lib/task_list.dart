@@ -27,6 +27,7 @@ import 'Tasks/Navigation/product.dart';
 import 'Tasks/Navigation/returndata.dart';
 import 'Tasks/Navigation/tapbar.dart';
 import 'Tasks/ProfileUI/ProfileDetails.dart';
+import 'Tasks/Widgets/interestScreen.dart';
 class TaskItem {
   final String title;
   final Widget page;
@@ -62,5 +63,6 @@ final List<TaskItem> tasks = [
   TaskItem(title: "Product Details", page: HomeProductScreen()),
   TaskItem(title: "Return data", page: PizzaHomeScreen()),
   TaskItem(title: "Tap Bar", page: tapbarScreen()),
-  TaskItem(title: "Profile Data", page: ProfileDetailsScreen())
+  TaskItem(title: "Profile Data", page: ProfileDetailsScreen()),
+  TaskItem(title: "interest App", page: InterestScreen())
 ];
