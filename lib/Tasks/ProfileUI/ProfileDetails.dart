@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-
-
 class ProfileDetailsScreen extends StatelessWidget {
   const ProfileDetailsScreen({super.key});
 
@@ -22,7 +20,7 @@ class ProfileScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: Padding(
+        child: SingleChildScrollView(
           padding: const EdgeInsets.symmetric(horizontal: 24),
           child: Column(
             children: [
@@ -81,6 +79,7 @@ class ProfileScreen extends StatelessWidget {
               const Divider(),
               _menuTile(Icons.help_outline, 'Help & Support'),
               _menuTile(Icons.logout, 'Log out'),
+              const SizedBox(height: 90),
             ],
           ),
         ),
@@ -143,7 +142,7 @@ class EditProfileScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: Padding(
+        child: SingleChildScrollView(
           padding: const EdgeInsets.symmetric(horizontal: 24),
           child: Column(
             children: [
@@ -214,7 +213,7 @@ class EditProfileScreen extends StatelessWidget {
               _field('Email', 'nirobparvesahammad@gmail.com'),
               const SizedBox(height: 14),
               _field('User name', '@parvesahamad'),
-              const Spacer(),
+              const SizedBox(height: 24),
               SizedBox(
                 width: double.infinity,
                 child: ElevatedButton(
