@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 
+void main() {
+  runApp(const ProfileDetailsScreen());
+}
+
 class ProfileDetailsScreen extends StatelessWidget {
   const ProfileDetailsScreen({super.key});
 
@@ -13,11 +17,61 @@ class ProfileDetailsScreen extends StatelessWidget {
   }
 }
 
-class ProfileScreen extends StatelessWidget {
+/// Simple data holder for profile fields. Everything starts empty.
+class ProfileData {
+  String name;
+  String gender;
+  String birthday;
+  String phone;
+  String email;
+  String username;
+
+  ProfileData({
+    this.name = '',
+    this.gender = '',
+    this.birthday = '',
+    this.phone = '',
+    this.email = '',
+    this.username = '',
+  });
+
+  ProfileData copy() => ProfileData(
+    name: name,
+    gender: gender,
+    birthday: birthday,
+    phone: phone,
+    email: email,
+    username: username,
+  );
+}
+
+class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
 
   @override
+  State<ProfileScreen> createState() => _ProfileScreenState();
+}
+
+class _ProfileScreenState extends State<ProfileScreen> {
+  // Starts empty — nothing hardcoded. Filled once user saves from Edit screen.
+  ProfileData _profile = ProfileData();
+
+  Future<void> _openEditScreen() async {
+    final result = await Navigator.of(context).push<ProfileData>(
+      MaterialPageRoute(
+        builder: (context) => EditProfileScreen(initialData: _profile.copy()),
+      ),
+    );
+    if (result != null) {
+      setState(() => _profile = result);
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
+    final hasName = _profile.name.isNotEmpty;
+    final hasUsername = _profile.username.isNotEmpty;
+
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
@@ -41,24 +95,27 @@ class ProfileScreen extends StatelessWidget {
               const CircleAvatar(
                 radius: 45,
                 backgroundColor: Colors.grey,
-                backgroundImage: NetworkImage(
-                    'https://i.pravatar.cc/150?img=12'),
+                child: Icon(Icons.person, size: 45, color: Colors.white),
               ),
               const SizedBox(height: 14),
-              const Text('Parves Ahamad',
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+              Text(
+                hasName ? _profile.name : 'Add your name',
+                style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                  color: hasName ? Colors.black : Colors.grey.shade400,
+                ),
+              ),
               const SizedBox(height: 2),
-              Text('@parvesahamad',
-                  style: TextStyle(color: Colors.grey.shade500, fontSize: 13)),
+              Text(
+                hasUsername ? '@${_profile.username}' : 'Set a username',
+                style: TextStyle(color: Colors.grey.shade500, fontSize: 13),
+              ),
               const SizedBox(height: 18),
               SizedBox(
                 width: double.infinity,
                 child: ElevatedButton(
-                  onPressed: () {
-                    Navigator.of(context).push(
-                      MaterialPageRoute(builder: (context) => const EditProfileScreen()),
-                    );
-                  },
+                  onPressed: _openEditScreen,
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.black,
                     foregroundColor: Colors.white,
@@ -93,11 +150,11 @@ class ProfileScreen extends StatelessWidget {
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            const Icon(Icons.home_outlined, color: Colors.white),
-            const Icon(Icons.favorite_border, color: Colors.white),
-            const Icon(Icons.search, color: Colors.white),
-            const Icon(Icons.shopping_bag_outlined, color: Colors.white),
+          children: const [
+            Icon(Icons.home_outlined, color: Colors.white),
+            Icon(Icons.favorite_border, color: Colors.white),
+            Icon(Icons.search, color: Colors.white),
+            Icon(Icons.shopping_bag_outlined, color: Colors.white),
             CircleAvatar(
               radius: 14,
               backgroundColor: Colors.white,
@@ -135,8 +192,56 @@ class ProfileScreen extends StatelessWidget {
   }
 }
 
-class EditProfileScreen extends StatelessWidget {
-  const EditProfileScreen({super.key});
+class EditProfileScreen extends StatefulWidget {
+  final ProfileData initialData;
+
+  const EditProfileScreen({super.key, required this.initialData});
+
+  @override
+  State<EditProfileScreen> createState() => _EditProfileScreenState();
+}
+
+class _EditProfileScreenState extends State<EditProfileScreen> {
+  late final TextEditingController _nameController;
+  late final TextEditingController _genderController;
+  late final TextEditingController _birthdayController;
+  late final TextEditingController _phoneController;
+  late final TextEditingController _emailController;
+  late final TextEditingController _usernameController;
+
+  @override
+  void initState() {
+    super.initState();
+    _nameController = TextEditingController(text: widget.initialData.name);
+    _genderController = TextEditingController(text: widget.initialData.gender);
+    _birthdayController = TextEditingController(text: widget.initialData.birthday);
+    _phoneController = TextEditingController(text: widget.initialData.phone);
+    _emailController = TextEditingController(text: widget.initialData.email);
+    _usernameController = TextEditingController(text: widget.initialData.username);
+  }
+
+  @override
+  void dispose() {
+    _nameController.dispose();
+    _genderController.dispose();
+    _birthdayController.dispose();
+    _phoneController.dispose();
+    _emailController.dispose();
+    _usernameController.dispose();
+    super.dispose();
+  }
+
+  void _save() {
+    final updated = ProfileData(
+      name: _nameController.text.trim(),
+      gender: _genderController.text.trim(),
+      birthday: _birthdayController.text.trim(),
+      phone: _phoneController.text.trim(),
+      email: _emailController.text.trim(),
+      username: _usernameController.text.trim(),
+    );
+    Navigator.of(context).pop(updated);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -172,8 +277,7 @@ class EditProfileScreen extends StatelessWidget {
                   const CircleAvatar(
                     radius: 45,
                     backgroundColor: Colors.grey,
-                    backgroundImage: NetworkImage(
-                        'https://i.pravatar.cc/150?img=12'),
+                    child: Icon(Icons.person, size: 45, color: Colors.white),
                   ),
                   Positioned(
                     bottom: 0,
@@ -190,34 +294,29 @@ class EditProfileScreen extends StatelessWidget {
                   ),
                 ],
               ),
-              const SizedBox(height: 12),
-              const Text('Parves Ahamad',
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
-              Text('@parvesahamad',
-                  style: TextStyle(color: Colors.grey.shade500, fontSize: 13)),
               const SizedBox(height: 20),
               const Divider(),
               const SizedBox(height: 12),
-              _field('Full name', 'Parves Ahamad'),
+              _inputField('Full name', _nameController),
               const SizedBox(height: 14),
               Row(
                 children: [
-                  Expanded(child: _field('Gender', 'Male')),
+                  Expanded(child: _inputField('Gender', _genderController)),
                   const SizedBox(width: 12),
-                  Expanded(child: _field('Birthday', '05-01-2001')),
+                  Expanded(child: _inputField('Birthday', _birthdayController, hint: 'DD-MM-YYYY')),
                 ],
               ),
               const SizedBox(height: 14),
-              _field('Phone number', '(+880) 1759263000'),
+              _inputField('Phone number', _phoneController, keyboardType: TextInputType.phone),
               const SizedBox(height: 14),
-              _field('Email', 'nirobparvesahammad@gmail.com'),
+              _inputField('Email', _emailController, keyboardType: TextInputType.emailAddress),
               const SizedBox(height: 14),
-              _field('User name', '@parvesahamad'),
+              _inputField('User name', _usernameController),
               const SizedBox(height: 24),
               SizedBox(
                 width: double.infinity,
                 child: ElevatedButton(
-                  onPressed: () {},
+                  onPressed: _save,
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.black,
                     foregroundColor: Colors.white,
@@ -237,10 +336,17 @@ class EditProfileScreen extends StatelessWidget {
     );
   }
 
-  Widget _field(String label, String value) {
+  /// Bordered input box, styled like the original static field but now
+  /// editable and empty by default (with a placeholder hint).
+  Widget _inputField(
+      String label,
+      TextEditingController controller, {
+        String? hint,
+        TextInputType keyboardType = TextInputType.text,
+      }) {
     return Container(
       width: double.infinity,
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
       decoration: BoxDecoration(
         border: Border.all(color: Colors.grey.shade300),
         borderRadius: BorderRadius.circular(12),
@@ -249,9 +355,22 @@ class EditProfileScreen extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(label, style: TextStyle(fontSize: 12, color: Colors.grey.shade500)),
-          const SizedBox(height: 2),
-          Text(value,
-              style: const TextStyle(fontSize: 15, fontWeight: FontWeight.w600)),
+          TextField(
+            controller: controller,
+            keyboardType: keyboardType,
+            style: const TextStyle(fontSize: 15, fontWeight: FontWeight.w600),
+            decoration: InputDecoration(
+              isDense: true,
+              contentPadding: const EdgeInsets.symmetric(vertical: 4),
+              border: InputBorder.none,
+              hintText: hint ?? 'Enter $label',
+              hintStyle: TextStyle(
+                fontSize: 14,
+                fontWeight: FontWeight.normal,
+                color: Colors.grey.shade400,
+              ),
+            ),
+          ),
         ],
       ),
     );
