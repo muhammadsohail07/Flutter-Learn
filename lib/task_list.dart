@@ -29,6 +29,7 @@ import 'Tasks/Navigation/tapbar.dart';
 import 'Tasks/ProfileUI/ProfileDetails.dart';
 import 'Tasks/Widgets/interestScreen.dart';
 import 'package:flutter_series/Tasks/ToDo App/todohome.dart';
+import 'package:flutter_series/Tasks/tictactoe/hometictactoe.dart';
 class TaskItem {
   final String title;
   final Widget page;
@@ -66,5 +67,6 @@ final List<TaskItem> tasks = [
   TaskItem(title: "Tap Bar", page: tapbarScreen()),
   TaskItem(title: "Profile Data", page: ProfileDetailsScreen()),
   TaskItem(title: "interest App", page: InterestScreen()),
-  TaskItem(title: "Todo App", page: TodoHomePage())
+  TaskItem(title: "Todo App", page: TodoHomePage()),
+  TaskItem(title: "tic tac toe", page: TicTacToeScreen())
 ];
