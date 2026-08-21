@@ -31,6 +31,7 @@ import 'Tasks/Widgets/interestScreen.dart';
 import 'package:flutter_series/Tasks/ToDo App/todohome.dart';
 import 'package:flutter_series/Tasks/tictactoe/hometictactoe.dart';
 import 'package:flutter_series/Tasks/Dark and Light/darkandlight.dart';
+import 'package:flutter_series/Tasks/Widgets/simpletextfield.dart';
 class TaskItem {
   final String title;
   final Widget page;
@@ -70,5 +71,6 @@ final List<TaskItem> tasks = [
   TaskItem(title: "interest App", page: InterestScreen()),
   TaskItem(title: "Todo App", page: TodoHomePage()),
   TaskItem(title: "tic tac toe", page: TicTacToeScreen()),
-  TaskItem(title: "Dark and Light", page: DarkandLight())
+  TaskItem(title: "Dark and Light", page: DarkandLight()),
+  TaskItem(title: "signup", page: SignUpForm())
 ];
