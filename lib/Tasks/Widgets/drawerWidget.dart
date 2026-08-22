@@ -24,13 +24,7 @@ class MyDrawerWidget extends StatelessWidget {
             title: Text('Home'),
             subtitle: Text('Go to homepage'),
             trailing: Icon(Icons.arrow_forward_ios),
-            onTap: () {
-              Navigator.pop(context);
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => Home()),
-              );
-            },
+
           ),
           ListTile(title: const Text('Categories'), onTap: () {}),
           ListTile(title: const Text('Orders'), onTap: () {}),
