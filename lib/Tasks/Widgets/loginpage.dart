@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-
 class SplashDecider extends StatefulWidget {
   const SplashDecider({super.key});
 
@@ -45,9 +44,6 @@ class _SplashDeciderState extends State<SplashDecider> {
   }
 }
 
-// ============================================================
-// LOGIN FORM SCREEN (FULL DESIGN)
-// ============================================================
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
 
@@ -64,7 +60,6 @@ class _LoginScreenState extends State<LoginScreen> {
   bool _rememberMe = true;
   bool _isLoading = false;
 
-  // Demo credentials (real app mein API call hogi)
   static const String _validUsername = 'admin';
   static const String _validPassword = '1234';
 
@@ -76,12 +71,10 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   Future<void> _handleLogin() async {
-    // Pehle form validate karo
     if (!_formKey.currentState!.validate()) return;
 
     setState(() => _isLoading = true);
 
-    // Fake network delay (real app mein yahan API call hogi)
     await Future.delayed(const Duration(milliseconds: 800));
 
     final username = _usernameController.text.trim();
@@ -103,7 +96,7 @@ class _LoginScreenState extends State<LoginScreen> {
       if (!mounted) return;
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
-          content: Text('Username ya password galat hai'),
+          content: Text('Wrong Username or password'),
           backgroundColor: Colors.red,
         ),
       );
@@ -124,7 +117,6 @@ class _LoginScreenState extends State<LoginScreen> {
               children: [
                 const SizedBox(height: 20),
 
-                // ---- Icon / Logo ----
                 Center(
                   child: Container(
                     width: 90,
@@ -148,12 +140,11 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
                 const SizedBox(height: 6),
                 const Text(
-                  'Login karne ke liye apni details dalein',
+                  'Enter Your Details ',
                   style: TextStyle(fontSize: 14, color: Colors.grey),
                 ),
                 const SizedBox(height: 32),
 
-                // ---- Username Field ----
                 const Text(
                   'Username',
                   style: TextStyle(fontWeight: FontWeight.w600, fontSize: 14),
@@ -162,7 +153,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 TextFormField(
                   controller: _usernameController,
                   decoration: InputDecoration(
-                    hintText: 'Apna username likhein',
+                    hintText: 'Enter username',
                     prefixIcon: const Icon(Icons.person_outline_rounded),
                     filled: true,
                     fillColor: Colors.white,
@@ -173,14 +164,13 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                   validator: (value) {
                     if (value == null || value.trim().isEmpty) {
-                      return 'Username khali nahi ho sakta';
+                      return 'Username cannot be empty';
                     }
                     return null;
                   },
                 ),
                 const SizedBox(height: 20),
 
-                // ---- Password Field ----
                 const Text(
                   'Password',
                   style: TextStyle(fontWeight: FontWeight.w600, fontSize: 14),
@@ -190,7 +180,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   controller: _passwordController,
                   obscureText: _obscurePassword,
                   decoration: InputDecoration(
-                    hintText: 'Apna password likhein',
+                    hintText: 'Enter your password',
                     prefixIcon: const Icon(Icons.lock_outline_rounded),
                     suffixIcon: IconButton(
                       icon: Icon(
@@ -211,17 +201,16 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
-                      return 'Password khali nahi ho sakta';
+                      return 'Password cannot be empty';
                     }
                     if (value.length < 4) {
-                      return 'Password kam se kam 4 characters ka ho';
+                      return 'Password must be at least 4 characters';
                     }
                     return null;
                   },
                 ),
                 const SizedBox(height: 12),
 
-                // ---- Remember Me + Forgot Password ----
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -234,7 +223,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             setState(() => _rememberMe = value ?? true);
                           },
                         ),
-                        const Text('Yaad rakho'),
+                        const Text('Remember me'),
                       ],
                     ),
                     TextButton(
@@ -244,7 +233,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         );
                       },
                       child: const Text(
-                        'Password bhool gaye?',
+                        'Forgot password?',
                         style: TextStyle(color: Color(0xFF6C63FF)),
                       ),
                     ),
@@ -252,7 +241,6 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
                 const SizedBox(height: 12),
 
-                // ---- Login Button ----
                 SizedBox(
                   width: double.infinity,
                   height: 52,
@@ -290,12 +278,11 @@ class _LoginScreenState extends State<LoginScreen> {
 
                 const SizedBox(height: 16),
 
-                // ---- Sign up row ----
                 Center(
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      const Text("Account nahi hai? "),
+                      const Text("Don't have an account? "),
                       GestureDetector(
                         onTap: () {
                           ScaffoldMessenger.of(context).showSnackBar(
@@ -322,9 +309,6 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 }
 
-// ============================================================
-// HOME SCREEN (login ke baad)
-// ============================================================
 class HomeScreen extends StatelessWidget {
   final String username;
 
