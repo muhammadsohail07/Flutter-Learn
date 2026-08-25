@@ -33,6 +33,8 @@ import 'package:flutter_series/Tasks/tictactoe/hometictactoe.dart';
 import 'package:flutter_series/Tasks/Dark and Light/darkandlight.dart';
 import 'package:flutter_series/Tasks/Widgets/simpletextfield.dart';
 import 'package:flutter_series/Tasks/Widgets/loginpage.dart';
+import 'package:flutter_series/Tasks/Widgets/addtocart.dart';
+
 class TaskItem {
   final String title;
   final Widget page;
@@ -74,5 +76,6 @@ final List<TaskItem> tasks = [
   TaskItem(title: "tic tac toe", page: TicTacToeScreen()),
   TaskItem(title: "Dark and Light", page: DarkandLight()),
   TaskItem(title: "signup", page: SignUpForm()),
-  TaskItem(title: "Login page", page: SplashDecider())
+  TaskItem(title: "Login page", page: SplashDecider()),
+  TaskItem(title: "add to cart", page: AtcHomeScreen())
 ];
