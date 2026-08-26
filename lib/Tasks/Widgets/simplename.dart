@@ -121,7 +121,7 @@ class _SimpleNameState extends State<SimpleName> {
 
               decoration: const InputDecoration(
                 labelText: "Enter your name",
-                hintText: "Example: Sahu",
+                hintText: "Example: ali",
                 border: OutlineInputBorder(),
               ),
             ),
