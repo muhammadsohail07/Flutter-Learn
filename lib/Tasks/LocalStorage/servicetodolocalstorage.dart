@@ -18,5 +18,9 @@ class todoStorageService{
     jsonEncode(todos.map((todo) => todo.toJson()).toList());
     await prefs.setString(_storageKey, encoded);
   }
+  Future<void> clearAlltodo() async{
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.remove(_storageKey);
+  }
 
 }
