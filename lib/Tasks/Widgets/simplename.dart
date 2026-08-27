@@ -42,9 +42,6 @@ class _SimpleNameState extends State<SimpleName> {
     );
   }
 
-  // =========================
-  // GET DATA
-  // =========================
 
   Future<void> getName() async {
 
