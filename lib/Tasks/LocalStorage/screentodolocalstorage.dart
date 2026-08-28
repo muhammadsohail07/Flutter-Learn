@@ -11,7 +11,7 @@ class TodoScreen extends StatefulWidget {
 
 class _TodoScreenState extends State<TodoScreen> {
 
- final todoStorageService _storageService = todoStorageService();
+  final todoStorageService _storageService = todoStorageService();
   List<todo> _todos = [];
   bool _isLoading = true;
   final TextEditingController _controller = TextEditingController();
@@ -83,7 +83,7 @@ class _TodoScreenState extends State<TodoScreen> {
               showDialog(
                 context: context,
                 builder: (ctx) => AlertDialog(
-                  title: const Text('Sab kuch delete karna hai?'),
+                  title: const Text('Delete everything?'),
                   actions: [
                     TextButton(
                       onPressed: () => Navigator.pop(ctx),
@@ -114,7 +114,7 @@ class _TodoScreenState extends State<TodoScreen> {
                   child: TextField(
                     controller: _controller,
                     decoration: const InputDecoration(
-                      hintText: 'Naya task likho...',
+                      hintText: 'Write a new task...',
                       border: OutlineInputBorder(),
                       contentPadding:
                       EdgeInsets.symmetric(horizontal: 12, vertical: 10),
@@ -131,12 +131,12 @@ class _TodoScreenState extends State<TodoScreen> {
             ),
           ),
 
-          // ---- List ----
+
           Expanded(
             child: _todos.isEmpty
                 ? const Center(
               child: Text(
-                'Koi task nahi hai.\nUpar se add karo!',
+                'No tasks yet.\nAdd one from above!',
                 textAlign: TextAlign.center,
                 style: TextStyle(fontSize: 16, color: Colors.grey),
               ),
@@ -172,7 +172,6 @@ class _TodoScreenState extends State<TodoScreen> {
             ),
           ),
 
-          // ---- Footer info ----
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Text(
