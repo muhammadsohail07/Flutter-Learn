@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -12,7 +14,7 @@ class _crudState extends State<crud> {
   final nameController = TextEditingController();
   String savedname = "no name saved";
 
-  Future<void> savedname() async{
+  Future<void> savedName() async{
    final prefs =  await SharedPreferences.getInstance();
    String name = nameController.text;
 
@@ -43,6 +45,16 @@ class _crudState extends State<crud> {
   }
 
   @override
+ void initState(){
+    super.initState();
+    getnamed();
+  }
+  @override
+  void dispose(){
+    nameController.dispose();
+    super.dispose();
+  }
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -51,7 +63,7 @@ class _crudState extends State<crud> {
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Text("saved name",
+          Text("saved name: $savedName()",
           style: TextStyle(
             fontSize: 22,
             fontWeight: FontWeight.bold,
@@ -68,17 +80,17 @@ class _crudState extends State<crud> {
           SizedBox(height: 22,),
           SizedBox(
             width: double.infinity,
-            child: ElevatedButton(onPressed: , child: Text("Saved")),
+            child: ElevatedButton(onPressed: savedName, child: Text("Saved")),
           ),
           SizedBox(height: 22,),
           SizedBox(
             width: double.infinity,
-            child: ElevatedButton(onPressed: , child: Text("Get")),
+            child: ElevatedButton(onPressed: getnamed, child: Text("Get")),
           ),
           SizedBox(height: 22,),
           SizedBox(
             width: double.infinity,
-            child: ElevatedButton(onPressed: , child: Text("Delete")),
+            child: ElevatedButton(onPressed: deletenamed, child: Text("Delete")),
           ),
         ],
       ),
