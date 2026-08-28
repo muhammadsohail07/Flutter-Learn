@@ -36,6 +36,7 @@ import 'package:flutter_series/Tasks/Widgets/loginpage.dart';
 import 'package:flutter_series/Tasks/Widgets/addtocart.dart';
 import 'package:flutter_series/Tasks/Widgets/simplename.dart';
 import 'package:flutter_series/Tasks/LocalStorage/screentodolocalstorage.dart';
+import 'package:flutter_series/Tasks/LocalStorage/crud.dart';
 
 class TaskItem {
   final String title;
@@ -81,5 +82,6 @@ final List<TaskItem> tasks = [
   TaskItem(title: "Login page", page: SplashDecider()),
   TaskItem(title: "add to cart", page: AtcHomeScreen()),
   TaskItem(title: "name", page: SimpleName()),
-  TaskItem(title: "Local Storage TodoApp", page: TodoScreen())
+  TaskItem(title: "Local Storage TodoApp", page: TodoScreen()),
+  TaskItem(title: "Crud", page: crud())
 ];
