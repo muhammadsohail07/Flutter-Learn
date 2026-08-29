@@ -37,6 +37,7 @@ import 'package:flutter_series/Tasks/Widgets/addtocart.dart';
 import 'package:flutter_series/Tasks/Widgets/simplename.dart';
 import 'package:flutter_series/Tasks/LocalStorage/screentodolocalstorage.dart';
 import 'package:flutter_series/Tasks/LocalStorage/crud.dart';
+import 'package:flutter_series/Tasks/LocalStorage/sqflite.dart';
 
 class TaskItem {
   final String title;
@@ -83,5 +84,6 @@ final List<TaskItem> tasks = [
   TaskItem(title: "add to cart", page: AtcHomeScreen()),
   TaskItem(title: "name", page: SimpleName()),
   TaskItem(title: "Local Storage TodoApp", page: TodoScreen()),
-  TaskItem(title: "Crud", page: crud())
+  TaskItem(title: "Crud", page: crud()),
+  TaskItem(title: "SqfLite", page: SqfliteLocalDBScreen())
 ];

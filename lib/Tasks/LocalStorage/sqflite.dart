@@ -42,7 +42,7 @@ class DBHelper {
     return await db.query('products');
   }
 
-  // ---------- UPDATE ----------
+
   static Future<int> updateProduct(int id, Map<String, dynamic> product) async {
     final db = await database;
     return await db.update('products', product, where: 'id = ?', whereArgs: [id]);
