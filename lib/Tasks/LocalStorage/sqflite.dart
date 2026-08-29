@@ -1,0 +1,60 @@
+import 'package:flutter/material.dart';
+import 'package:sqflite/sqflite.dart';
+import 'package:path/path.dart';
+
+class SqfliteLocalStorage extends StatefulWidget {
+  const SqfliteLocalStorage({super.key});
+
+  @override
+  State<SqfliteLocalStorage> createState() => _SqfliteLocalStorageState();
+}
+
+class _SqfliteLocalStorageState extends State<SqfliteLocalStorage> {
+  List<Map<String, dynamic>> _products = [];
+  void initState() {
+    super.initState();
+    _loadProducts();
+  }
+  Future<void> _loadProducts() async {
+    final data = await DBHelper.getProducts();
+    setState(() => _products = data);
+  }
+
+  Future<void> _addProduct() async {
+    await DBHelper.insertProduct({
+      'name': 'Organic Honey',
+      'price': 800.0,
+      'farmer': 'Ali (Hunza)',
+    });
+    _loadProducts();
+  }
+
+  Future<void> _deleteProduct(int id) async {
+    await DBHelper.deleteProduct(id);
+    _loadProducts();
+  }
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text('Local DB (sqflite)')),
+      body: ListView.builder(
+        itemCount: _products.length,
+        itemBuilder: (context, index) {
+          final p = _products[index];
+          return ListTile(
+            title: Text(p['name']),
+            subtitle: Text('Rs. ${p['price']} — ${p['farmer']}'),
+            trailing: IconButton(
+              icon: const Icon(Icons.delete),
+              onPressed: () => _deleteProduct(p['id']),
+            ),
+          );
+        },
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: _addProduct,
+        child: const Icon(Icons.add),
+      ),
+    );
+  }
+}
