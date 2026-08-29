@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 
+
 class DBHelper {
   static Database? _db;
 
@@ -28,21 +29,50 @@ class DBHelper {
       },
     );
   }
+
+
+  static Future<int> insertProduct(Map<String, dynamic> product) async {
+    final db = await database;
+    return await db.insert('products', product);
+  }
+
+
+  static Future<List<Map<String, dynamic>>> getProducts() async {
+    final db = await database;
+    return await db.query('products');
+  }
+
+  // ---------- UPDATE ----------
+  static Future<int> updateProduct(int id, Map<String, dynamic> product) async {
+    final db = await database;
+    return await db.update('products', product, where: 'id = ?', whereArgs: [id]);
+  }
+
+
+  static Future<int> deleteProduct(int id) async {
+    final db = await database;
+    return await db.delete('products', where: 'id = ?', whereArgs: [id]);
+  }
 }
 
-class SqfliteLocalStorage extends StatefulWidget {
-  const SqfliteLocalStorage({super.key});
+
+
+
+class SqfliteLocalDBScreen extends StatefulWidget {
+  const SqfliteLocalDBScreen({super.key});
+  @override
+  State<SqfliteLocalDBScreen> createState() => _SqfliteLocalDBScreenState();
+}
+
+class _SqfliteLocalDBScreenState extends State<SqfliteLocalDBScreen> {
+  List<Map<String, dynamic>> _products = [];
 
   @override
-  State<SqfliteLocalStorage> createState() => _SqfliteLocalStorageState();
-}
-
-class _SqfliteLocalStorageState extends State<SqfliteLocalStorage> {
-  List<Map<String, dynamic>> _products = [];
   void initState() {
     super.initState();
     _loadProducts();
   }
+
   Future<void> _loadProducts() async {
     final data = await DBHelper.getProducts();
     setState(() => _products = data);
@@ -61,6 +91,7 @@ class _SqfliteLocalStorageState extends State<SqfliteLocalStorage> {
     await DBHelper.deleteProduct(id);
     _loadProducts();
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
