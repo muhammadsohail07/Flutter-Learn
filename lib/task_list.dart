@@ -38,7 +38,7 @@ import 'package:flutter_series/Tasks/Widgets/simplename.dart';
 import 'package:flutter_series/Tasks/LocalStorage/screentodolocalstorage.dart';
 import 'package:flutter_series/Tasks/LocalStorage/crud.dart';
 import 'package:flutter_series/Tasks/LocalStorage/sqflite.dart';
-
+import 'package:flutter_series/Tasks/LocalStorage/contactapp.dart';
 class TaskItem {
   final String title;
   final Widget page;
@@ -85,5 +85,6 @@ final List<TaskItem> tasks = [
   TaskItem(title: "name", page: SimpleName()),
   TaskItem(title: "Local Storage TodoApp", page: TodoScreen()),
   TaskItem(title: "Crud", page: crud()),
-  TaskItem(title: "SqfLite", page: SqfliteLocalDBScreen())
+  TaskItem(title: "SqfLite", page: SqfliteLocalDBScreen()),
+  TaskItem(title: "Contact App", page: ContactsScreen())
 ];
