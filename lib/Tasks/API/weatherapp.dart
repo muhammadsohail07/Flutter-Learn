@@ -3,6 +3,7 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 
+
 class WeatherScreen extends StatefulWidget {
   const WeatherScreen({super.key});
   @override
@@ -19,6 +20,29 @@ class _WeatherScreenState extends State<WeatherScreen> {
   double? _windSpeed;
   int? _weatherCode;
 
+  // Weather code ko readable text/icon mein convert karna
+  String _getWeatherDescription(int code) {
+    if (code == 0) return 'Clear Sky';
+    if (code <= 3) return 'Partly Cloudy';
+    if (code <= 48) return 'Foggy';
+    if (code <= 57) return 'Drizzle';
+    if (code <= 67) return 'Rainy';
+    if (code <= 77) return 'Snowy';
+    if (code <= 82) return 'Rain Showers';
+    if (code <= 99) return 'Thunderstorm';
+    return 'Unknown';
+  }
+
+  IconData _getWeatherIcon(int code) {
+    if (code == 0) return Icons.wb_sunny;
+    if (code <= 3) return Icons.cloud;
+    if (code <= 48) return Icons.foggy;
+    if (code <= 67) return Icons.grain;
+    if (code <= 77) return Icons.ac_unit;
+    if (code <= 99) return Icons.thunderstorm;
+    return Icons.wb_cloudy;
+  }
+
 
   Future<void> _getWeather() async {
     final city = _cityController.text.trim();
@@ -30,7 +54,7 @@ class _WeatherScreenState extends State<WeatherScreen> {
     });
 
     try {
-      // Geocoding: city name -> lat/lon
+
       final geoUrl = Uri.parse(
         'https://geocoding-api.open-meteo.com/v1/search?name=$city&count=1',
       );
@@ -49,27 +73,30 @@ class _WeatherScreenState extends State<WeatherScreen> {
       final lon = geoData['results'][0]['longitude'];
       final name = geoData['results'][0]['name'];
 
-String _getWeatherDescription(int code) {
-if (code == 0) return 'Clear Sky';
-if (code <= 3) return 'Partly Cloudy';
-if (code <= 48) return 'Foggy';
-if (code <= 57) return 'Drizzle';
-if (code <= 67) return 'Rainy';
-if (code <= 77) return 'Snowy';
-if (code <= 82) return 'Rain Showers';
-if (code <= 99) return 'Thunderstorm';
-return 'Unknown';
-}
 
-IconData _getWeatherIcon(int code) {
-if (code == 0) return Icons.wb_sunny;
-if (code <= 3) return Icons.cloud;
-if (code <= 48) return Icons.foggy;
-if (code <= 67) return Icons.grain;
-if (code <= 77) return Icons.ac_unit;
-if (code <= 99) return Icons.thunderstorm;
-return Icons.wb_cloudy;
-}
+      final weatherUrl = Uri.parse(
+        'https://api.open-meteo.com/v1/forecast?latitude=$lat&longitude=$lon&current_weather=true',
+      );
+      final weatherResponse = await http.get(weatherUrl);
+      final weatherData = jsonDecode(weatherResponse.body);
+
+      final current = weatherData['current_weather'];
+
+      setState(() {
+        _cityName = name;
+        _temperature = current['temperature'].toDouble();
+        _windSpeed = current['windspeed'].toDouble();
+        _weatherCode = current['weathercode'];
+        _isLoading = false;
+      });
+    } catch (e) {
+      setState(() {
+        _errorMessage = 'Kuch ghalat hua. Internet check karein.';
+        _isLoading = false;
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
