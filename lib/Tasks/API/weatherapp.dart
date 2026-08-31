@@ -49,6 +49,27 @@ class _WeatherScreenState extends State<WeatherScreen> {
       final lon = geoData['results'][0]['longitude'];
       final name = geoData['results'][0]['name'];
 
+String _getWeatherDescription(int code) {
+if (code == 0) return 'Clear Sky';
+if (code <= 3) return 'Partly Cloudy';
+if (code <= 48) return 'Foggy';
+if (code <= 57) return 'Drizzle';
+if (code <= 67) return 'Rainy';
+if (code <= 77) return 'Snowy';
+if (code <= 82) return 'Rain Showers';
+if (code <= 99) return 'Thunderstorm';
+return 'Unknown';
+}
+
+IconData _getWeatherIcon(int code) {
+if (code == 0) return Icons.wb_sunny;
+if (code <= 3) return Icons.cloud;
+if (code <= 48) return Icons.foggy;
+if (code <= 67) return Icons.grain;
+if (code <= 77) return Icons.ac_unit;
+if (code <= 99) return Icons.thunderstorm;
+return Icons.wb_cloudy;
+}
   @override
   Widget build(BuildContext context) {
     return Scaffold(
