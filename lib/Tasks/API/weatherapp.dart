@@ -2,9 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
-void main() {
-  runApp(const MyApp());
-}
 
 class WeatherScreen extends StatefulWidget {
   const WeatherScreen({super.key});
@@ -13,7 +10,44 @@ class WeatherScreen extends StatefulWidget {
 }
 
 class _WeatherScreenState extends State<WeatherScreen> {
+  final _cityController = TextEditingController();
+  bool _isLoading = false;
+  String? _errorMessage;
 
+  String? _cityName;
+  double? _temperature;
+  double? _windSpeed;
+  int? _weatherCode;
+
+
+  Future<void> _getWeather() async {
+    final city = _cityController.text.trim();
+    if (city.isEmpty) return;
+
+    setState(() {
+      _isLoading = true;
+      _errorMessage = null;
+    });
+
+    try {
+      // Geocoding: city name -> lat/lon
+      final geoUrl = Uri.parse(
+        'https://geocoding-api.open-meteo.com/v1/search?name=$city&count=1',
+      );
+      final geoResponse = await http.get(geoUrl);
+      final geoData = jsonDecode(geoResponse.body);
+
+      if (geoData['results'] == null || geoData['results'].isEmpty) {
+        setState(() {
+          _errorMessage = 'City nahi mila. Naam check karein.';
+          _isLoading = false;
+        });
+        return;
+      }
+
+      final lat = geoData['results'][0]['latitude'];
+      final lon = geoData['results'][0]['longitude'];
+      final name = geoData['results'][0]['name'];
 
   @override
   Widget build(BuildContext context) {
