@@ -12,6 +12,34 @@ class _QuoteListState extends State<QuoteList> {
   bool _isLoading = false;
 
 
+  Future<void> fetchData() async {
+    setState(() {
+      _isLoading = true;
+    });
+    try {
+      final response = await http.get(
+        Uri.parse('https://jsonguide.technologychannel.org/quotes.json'),
+      );
+      if (response.statusCode == 200) {
+        // If the server returns a 200 OK response, parse the JSON.
+        setState(() {
+          _quoteData = jsonDecode(response.body);
+        });
+      } else {
+        // If the server did not return a 200 OK response,
+        // throw an exception.
+        throw Exception('Failed to load data');
+      }
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Error: $e')),
+      );
+    } finally {
+      setState(() {
+        _isLoading = false;
+      });
+    }
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
