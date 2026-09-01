@@ -52,7 +52,7 @@ class _QuoteListState extends State<QuoteList> {
           children: [
             const SizedBox(height: 16),
             ElevatedButton(
-              onPressed:(){},
+              onPressed: _isLoading ? null : fetchData,
               child: Text(_isLoading ? 'Loading...' : 'Fetch Quotes'),
             ),
             const SizedBox(height: 20),
