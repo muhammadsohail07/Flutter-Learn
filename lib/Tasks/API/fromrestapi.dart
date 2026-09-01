@@ -11,23 +11,21 @@ class _QuoteListState extends State<QuoteList> {
   List<dynamic> _quoteData = [];
   bool _isLoading = false;
 
-
   Future<void> fetchData() async {
     setState(() {
       _isLoading = true;
     });
     try {
       final response = await http.get(
-        Uri.parse('https://jsonguide.technologychannel.org/quotes.json'),
+        Uri.parse('https://api.jsonbin.io/v3/b/6a9717aada38895dfe2c3390'),
       );
       if (response.statusCode == 200) {
-        // If the server returns a 200 OK response, parse the JSON.
+
+        final decoded = jsonDecode(response.body);
         setState(() {
-          _quoteData = jsonDecode(response.body);
+          _quoteData = decoded['record'];
         });
       } else {
-        // If the server did not return a 200 OK response,
-        // throw an exception.
         throw Exception('Failed to load data');
       }
     } catch (e) {
@@ -40,6 +38,7 @@ class _QuoteListState extends State<QuoteList> {
       });
     }
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
