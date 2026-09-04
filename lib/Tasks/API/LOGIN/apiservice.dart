@@ -1,3 +1,6 @@
+import 'package:flutter_series/Tasks/API/LOGIN/loginmodel.dart';
+
+import 'package:http/http.dart' as http;
 class ApiService {
   // Apna JSONBin URL yahan lagao, e.g. https://api.jsonbin.io/v3/b/xxxxxxxx
   static const String binUrl = 'YOUR_JSONBIN_URL';
