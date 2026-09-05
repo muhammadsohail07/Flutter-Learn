@@ -2,11 +2,8 @@ import 'package:flutter_series/Tasks/API/LOGIN/loginmodel.dart';
 
 import 'package:http/http.dart' as http;
 class ApiService {
-  // Apna JSONBin URL yahan lagao, e.g. https://api.jsonbin.io/v3/b/xxxxxxxx
-  static const String binUrl = 'YOUR_JSONBIN_URL';
-
-  // Apni JSONBin X-Master-Key yahan lagao
-  static const String apiKey = 'YOUR_API_KEY';
+  static const String binUrl = 'https://api.jsonbin.io/v3/b/6a9717aada38895dfe2c3390';
+  static const String apiKey = '$2a$10$e3kbIVIVSzjC/XvLso.qWeTyzULo/f1TEh3/sxuHo67RElU5l3Gbe';
 
   Future<UserModel?> login(String email, String password) async {
     try {
