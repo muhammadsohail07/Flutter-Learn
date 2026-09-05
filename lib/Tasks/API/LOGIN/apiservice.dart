@@ -1,9 +1,9 @@
 import 'package:flutter_series/Tasks/API/LOGIN/loginmodel.dart';
-
+import 'dart:convert';
 import 'package:http/http.dart' as http;
 class ApiService {
   static const String binUrl = 'https://api.jsonbin.io/v3/b/6a9717aada38895dfe2c3390';
-  static const String apiKey = '$2a$10$e3kbIVIVSzjC/XvLso.qWeTyzULo/f1TEh3/sxuHo67RElU5l3Gbe';
+  static const String apiKey = r'$2a$10$e3kbIVIVSzjC/XvLso.qWeTyzULo/f1TEh3/sxuHo67RElU5l3Gbe';
 
   Future<UserModel?> login(String email, String password) async {
     try {
