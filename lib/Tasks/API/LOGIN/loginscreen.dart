@@ -4,14 +4,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_series/Tasks/API/LOGIN/apiservice.dart';
 import 'package:flutter_series/Tasks/API/LOGIN/homescreen.dart';
 
-class LoginScreen extends StatefulWidget {
-  const LoginScreen({super.key});
+class LoginAPIScreen extends StatefulWidget {
+  const LoginAPIScreen({super.key});
 
   @override
-  State<LoginScreen> createState() => _LoginScreenState();
+  State<LoginAPIScreen> createState() => _LoginAPIScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _LoginAPIScreenState extends State<LoginAPIScreen> {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
 

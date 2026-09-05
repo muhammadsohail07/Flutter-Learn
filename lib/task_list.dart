@@ -41,6 +41,7 @@ import 'package:flutter_series/Tasks/LocalStorage/sqflite.dart';
 import 'package:flutter_series/Tasks/LocalStorage/contactapp.dart';
 import 'package:flutter_series/Tasks/API/weatherapp.dart';
 import 'package:flutter_series/Tasks/API/fromrestapi.dart';
+import 'package:flutter_series/Tasks/API/LOGIN/loginscreen.dart';
 
 
 class TaskItem {
@@ -92,5 +93,6 @@ final List<TaskItem> tasks = [
   TaskItem(title: "SqfLite", page: SqfliteLocalDBScreen()),
   TaskItem(title: "Contact App", page: ContactsScreen()),
   TaskItem(title: "Weather App", page: WeatherScreen()),
-  TaskItem(title: "Rest API", page: QuoteList())
+  TaskItem(title: "Rest API", page: QuoteList()),
+ TaskItem(title: "Login API", page: LoginAPIScreen())
 ];
