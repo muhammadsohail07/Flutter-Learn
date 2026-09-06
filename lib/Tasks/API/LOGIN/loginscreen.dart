@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter_series/Tasks/API/LOGIN/apiservice.dart';
 import 'package:flutter_series/Tasks/API/LOGIN/homescreen.dart';
+import 'package:flutter_series/Tasks/API/LOGIN/signupscreen.dart';
 
 class LoginAPIScreen extends StatefulWidget {
   const LoginAPIScreen({super.key});
@@ -114,6 +115,16 @@ class _LoginAPIScreenState extends State<LoginAPIScreen> {
                     ? const CircularProgressIndicator(color: Colors.white)
                     : const Text('LOGIN', style: TextStyle(fontSize: 16)),
               ),
+            ),
+            const SizedBox(height: 25),
+            TextButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const SignupScreen()),
+                );
+              },
+              child: const Text("Don't have an account? Sign up"),
             ),
           ],
         ),
