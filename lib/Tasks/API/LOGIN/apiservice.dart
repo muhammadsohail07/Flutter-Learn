@@ -38,7 +38,7 @@ class ApiService {
 
   Future<bool> signup(String email, String password, String name) async {
     try {
-      // Step A: Pehle current data fetch karo
+
       final getResponse = await http.get(
         Uri.parse(binUrl),
         headers: {
@@ -55,13 +55,13 @@ class ApiService {
       final record = data['record'];
       final usersList = List<dynamic>.from(record['users'] as List<dynamic>);
 
-      // Step B: Check karo email pehle se to nahi hai
+
       final alreadyExists = usersList.any((u) => u['email'] == email);
       if (alreadyExists) {
         throw Exception('Email already registered');
       }
 
-      // Step C: Naya user list mein add karo
+
       usersList.add({
         'email': email,
         'password': password,
@@ -87,4 +87,4 @@ class ApiService {
       throw Exception('Something went wrong: $e');
     }
   }
-} // ← class ki closing brace ab sabse aakhir mein
+}
