@@ -68,7 +68,7 @@ class ApiService {
         'name': name,
       });
 
-      // Step D: Poori updated list wapas PUT karo
+
       final putResponse = await http.put(
         Uri.parse(binUrl),
         headers: {
@@ -79,7 +79,7 @@ class ApiService {
       );
 
       if (putResponse.statusCode == 200) {
-        return true; // signup successful
+        return true;
       } else {
         throw Exception('Signup failed: ${putResponse.statusCode}');
       }
