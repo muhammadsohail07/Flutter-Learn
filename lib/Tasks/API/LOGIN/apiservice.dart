@@ -38,7 +38,6 @@ class ApiService {
 
   Future<bool> signup(String email, String password, String name) async {
     try {
-
       final getResponse = await http.get(
         Uri.parse(binUrl),
         headers: {
@@ -55,19 +54,16 @@ class ApiService {
       final record = data['record'];
       final usersList = List<dynamic>.from(record['users'] as List<dynamic>);
 
-
       final alreadyExists = usersList.any((u) => u['email'] == email);
       if (alreadyExists) {
         throw Exception('Email already registered');
       }
-
 
       usersList.add({
         'email': email,
         'password': password,
         'name': name,
       });
-
 
       final putResponse = await http.put(
         Uri.parse(binUrl),
@@ -82,6 +78,51 @@ class ApiService {
         return true;
       } else {
         throw Exception('Signup failed: ${putResponse.statusCode}');
+      }
+    } catch (e) {
+      throw Exception('Something went wrong: $e');
+    }
+  }
+
+  Future<bool> resetPassword(String email, String newPassword) async {
+    try {
+      final getResponse = await http.get(
+        Uri.parse(binUrl),
+        headers: {
+          'X-Master-Key': apiKey,
+          'Content-Type': 'application/json',
+        },
+      );
+
+      if (getResponse.statusCode != 200) {
+        throw Exception('Fetch failed: ${getResponse.statusCode}');
+      }
+
+      final data = jsonDecode(getResponse.body);
+      final record = data['record'];
+      final usersList = List<dynamic>.from(record['users'] as List<dynamic>);
+
+      final index = usersList.indexWhere((u) => u['email'] == email);
+
+      if (index == -1) {
+        throw Exception('Email not found');
+      }
+
+      usersList[index]['password'] = newPassword;
+
+      final putResponse = await http.put(
+        Uri.parse(binUrl),
+        headers: {
+          'X-Master-Key': apiKey,
+          'Content-Type': 'application/json',
+        },
+        body: jsonEncode({'users': usersList}),
+      );
+
+      if (putResponse.statusCode == 200) {
+        return true;
+      } else {
+        throw Exception('Reset failed: ${putResponse.statusCode}');
       }
     } catch (e) {
       throw Exception('Something went wrong: $e');
