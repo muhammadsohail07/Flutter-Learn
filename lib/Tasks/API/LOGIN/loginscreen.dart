@@ -101,6 +101,26 @@ class _LoginAPIScreenState extends State<LoginAPIScreen> {
                 prefixIcon: Icon(Icons.lock),
               ),
             ),
+
+            const SizedBox(height: 25),
+            TextButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const SignupScreen()),
+                );
+              },
+              child: const Text("Don't have an account? Sign up"),
+            ),
+            TextButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const ForgotPasswordScreen()),
+                );
+              },
+              child: const Text('Forgot Password?'),
+            ),
             const SizedBox(height: 25),
             SizedBox(
               width: double.infinity,
