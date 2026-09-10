@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_series/Tasks/API/LOGIN/apiservice.dart';
 import 'package:flutter_series/Tasks/API/LOGIN/homescreen.dart';
 import 'package:flutter_series/Tasks/API/LOGIN/signupscreen.dart';
-import 'package:flutter_series/Tasks/API/LOGIN/forgetpass.dart';
+import 'package:flutter_series/Tasks/API/LOGIN/forgotpass.dart';
 
 class LoginAPIScreen extends StatefulWidget {
   const LoginAPIScreen({super.key});
