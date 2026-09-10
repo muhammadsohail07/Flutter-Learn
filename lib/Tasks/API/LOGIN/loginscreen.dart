@@ -20,6 +20,7 @@ class _LoginAPIScreenState extends State<LoginAPIScreen> {
 
   bool isLoading = false;
 
+  bool obscurePassword = true;
   Future<void> login() async {
     if (emailController.text.isEmpty || passwordController.text.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
@@ -126,13 +127,24 @@ class _LoginAPIScreenState extends State<LoginAPIScreen> {
                 const SizedBox(height: 16),
                 TextField(
                   controller: passwordController,
-                  obscureText: true,
+                  obscureText: obscurePassword,
                   decoration: InputDecoration(
                     labelText: 'Password',
                     hintText: '123456',
                     filled: true,
                     fillColor: Colors.white,
                     prefixIcon: const Icon(Icons.lock_outline),
+                    suffixIcon: IconButton(
+                      icon: Icon(
+                        obscurePassword ? Icons.visibility_off : Icons.visibility,
+                        color: Colors.grey,
+                      ),
+                      onPressed: () {
+                        setState(() {
+                          obscurePassword = !obscurePassword;
+                        });
+                      },
+                    ),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(14),
                       borderSide: BorderSide.none,
