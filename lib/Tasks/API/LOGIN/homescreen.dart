@@ -14,7 +14,7 @@ class HomeScreen extends StatelessWidget {
         backgroundColor: Colors.transparent,
         elevation: 0,
         title: const Text(
-          'Home',
+          'Home Screen',
           style: TextStyle(
             color: Colors.black87,
             fontWeight: FontWeight.w600,
