@@ -46,7 +46,7 @@ class HomeScreen extends StatelessWidget {
                 style: const TextStyle(
                   fontSize: 22,
                   fontWeight: FontWeight.w600,
-                  color: Colors.black87,
+                  color: Colors.red,
                 ),
               ),
               const SizedBox(height: 6),
@@ -66,7 +66,7 @@ class HomeScreen extends StatelessWidget {
                     Navigator.pop(context);
                   },
                   style: OutlinedButton.styleFrom(
-                    foregroundColor: Colors.black87,
+                    foregroundColor: Colors.red,
                     side: const BorderSide(color: Colors.black26),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(12),
