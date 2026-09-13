@@ -128,4 +128,54 @@ class ApiService {
       throw Exception('Something went wrong: $e');
     }
   }
+
+Future<UserModel> updateProfile(
+    String email,
+    String newName,
+    String newPassword,
+    ) async {
+  try {
+    final getResponse = await http.get(
+      Uri.parse(binUrl),
+      headers: {
+        'X-Master-Key': apiKey,
+        'Content-Type': 'application/json',
+      },
+    );
+
+    if (getResponse.statusCode != 200) {
+      throw Exception('Fetch failed: ${getResponse.statusCode}');
+    }
+
+    final data = jsonDecode(getResponse.body);
+    final record = data['record'];
+    final usersList = List<dynamic>.from(record['users'] as List<dynamic>);
+
+    final index = usersList.indexWhere((u) => u['email'] == email);
+
+    if (index == -1) {
+      throw Exception('User not found');
+    }
+
+    usersList[index]['name'] = newName;
+    usersList[index]['password'] = newPassword;
+
+    final putResponse = await http.put(
+      Uri.parse(binUrl),
+      headers: {
+        'X-Master-Key': apiKey,
+        'Content-Type': 'application/json',
+      },
+      body: jsonEncode({'users': usersList}),
+    );
+
+    if (putResponse.statusCode == 200) {
+      return UserModel.fromJson(usersList[index]);
+    } else {
+      throw Exception('Update failed: ${putResponse.statusCode}');
+    }
+  } catch (e) {
+    throw Exception('Something went wrong: $e');
+  }
+}
 }
