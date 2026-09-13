@@ -103,10 +103,10 @@ class HomeScreen extends StatelessWidget {
                 height: 50,
                 child: OutlinedButton(
                   onPressed: () {
-                    Navigator.pop(context);
+                    _showLogoutDialog(context);
                   },
                   style: OutlinedButton.styleFrom(
-                    foregroundColor: Colors.red,
+                    foregroundColor: Colors.black87,
                     side: const BorderSide(color: Colors.black26),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(12),
