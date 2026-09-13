@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_series/Tasks/API/LOGIN/loginmodel.dart';
+import 'package:flutter_series/Tasks/API/LOGIN/editprofilescreen.dart';
 
 class HomeScreen extends StatelessWidget {
   final UserModel user;
@@ -50,6 +51,7 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xFFF7F7F9),
+
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
@@ -61,6 +63,28 @@ class HomeScreen extends StatelessWidget {
           ),
         ),
         iconTheme: const IconThemeData(color: Colors.black87),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.edit_outlined),
+            onPressed: () async {
+              final updatedUser = await Navigator.push<UserModel>(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => ProfileEditScreen(user: user),
+                ),
+              );
+
+              if (updatedUser != null && context.mounted) {
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => HomeScreen(user: updatedUser),
+                  ),
+                );
+              }
+            },
+          ),
+        ],
       ),
       body: Center(
         child: Padding(
