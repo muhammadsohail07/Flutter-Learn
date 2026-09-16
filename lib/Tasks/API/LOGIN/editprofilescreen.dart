@@ -133,19 +133,55 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   const SizedBox(height: 20),
-                  CircleAvatar(
-                    radius: 48,
-                    backgroundColor: const Color(0xFF2D6A4F),
-                    child: Text(
-                      nameController.text.isNotEmpty
-                          ? nameController.text[0].toUpperCase()
-                          : '?',
-                      style: const TextStyle(
-                        fontSize: 32,
-                        color: Colors.white,
-                        fontWeight: FontWeight.w600,
+                  Stack(
+                    children: [
+                      CircleAvatar(
+                        radius: 48,
+                        backgroundColor: const Color(0xFF2D6A4F),
+                        backgroundImage: pickedImage != null
+                            ? FileImage(pickedImage!)
+                            : (widget.user.profileImage != null
+                            ? NetworkImage(widget.user.profileImage!)
+                            : null) as ImageProvider?,
+                        child: (pickedImage == null && widget.user.profileImage == null)
+                            ? Text(
+                          nameController.text.isNotEmpty
+                              ? nameController.text[0].toUpperCase()
+                              : '?',
+                          style: const TextStyle(
+                            fontSize: 32,
+                            color: Colors.white,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        )
+                            : null,
                       ),
-                    ),
+                      Positioned(
+                        bottom: 0,
+                        right: 0,
+                        child: GestureDetector(
+                          onTap: isUploadingImage ? null : pickAndUploadImage,
+                          child: Container(
+                            padding: const EdgeInsets.all(6),
+                            decoration: BoxDecoration(
+                              color: const Color(0xFF2D6A4F),
+                              shape: BoxShape.circle,
+                              border: Border.all(color: Colors.white, width: 2),
+                            ),
+                            child: isUploadingImage
+                                ? const SizedBox(
+                              width: 14,
+                              height: 14,
+                              child: CircularProgressIndicator(
+                                color: Colors.white,
+                                strokeWidth: 2,
+                              ),
+                            )
+                                : const Icon(Icons.camera_alt, size: 14, color: Colors.white),
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                   const SizedBox(height: 12),
                   Text(
