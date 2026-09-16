@@ -3,8 +3,8 @@ import 'dart:io';
 import 'package:http/http.dart' as http;
 
 class CloudinaryService {
-  static const String cloudName = '';
-  static const String uploadPreset = '';
+  static const String cloudName = 'denfs72dr';
+  static const String uploadPreset = 'flutterapp';
 
   static Future<String> uploadImage(File imageFile) async {
     final url = Uri.parse(
