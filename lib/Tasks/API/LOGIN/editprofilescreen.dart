@@ -33,7 +33,41 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
     nameController = TextEditingController(text: widget.user.name);
     passwordController = TextEditingController(text: widget.user.password);
   }
+  Future<void> pickAndUploadImage() async {
+    final picker = ImagePicker();
+    final picked = await picker.pickImage(
+      source: ImageSource.gallery,
+      imageQuality: 70,
+    );
 
+    if (picked == null) return;
+
+    final file = File(picked.path);
+
+    setState(() {
+      pickedImage = file;
+      isUploadingImage = true;
+    });
+
+    try {
+      final imageUrl = await CloudinaryService.uploadImage(file);
+      await apiService.updateProfileImage(widget.user.email, imageUrl);
+
+      if (!mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Profile picture updated')),
+      );
+    } catch (e) {
+      if (!mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text(e.toString())),
+      );
+    }
+
+    setState(() {
+      isUploadingImage = false;
+    });
+  }
   Future<void> saveChanges() async {
     if (!_formKey.currentState!.validate()) {
       return;
