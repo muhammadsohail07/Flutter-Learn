@@ -24,6 +24,8 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
   final ApiService apiService = ApiService();
   bool isLoading = false;
   bool obscurePassword = true;
+  File? pickedImage;
+  bool isUploadingImage = false;
 
   @override
   void initState() {
