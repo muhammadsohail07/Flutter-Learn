@@ -49,6 +49,24 @@ class HomeScreen extends StatelessWidget {
     );
   }
 
+  Future<void> _openEditProfile(BuildContext context) async {
+    final updatedUser = await Navigator.push<UserModel>(
+      context,
+      MaterialPageRoute(
+        builder: (context) => ProfileEditScreen(user: user),
+      ),
+    );
+
+    if (updatedUser != null && context.mounted) {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (context) => HomeScreen(user: updatedUser),
+        ),
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -67,23 +85,7 @@ class HomeScreen extends StatelessWidget {
         actions: [
           IconButton(
             icon: const Icon(Icons.edit_outlined),
-            onPressed: () async {
-              final updatedUser = await Navigator.push<UserModel>(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => ProfileEditScreen(user: user),
-                ),
-              );
-
-              if (updatedUser != null && context.mounted) {
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => HomeScreen(user: updatedUser),
-                  ),
-                );
-              }
-            },
+            onPressed: () => _openEditProfile(context),
           ),
         ],
       ),
@@ -113,24 +115,26 @@ class HomeScreen extends StatelessWidget {
                   ),
                   child: Column(
                     children: [
-                      Container(
-                        width: 88,
-                        height: 88,
-                        alignment: Alignment.center,
-                        decoration: BoxDecoration(
-                          color: const Color(0xFF2D6A4F),
-                          borderRadius: BorderRadius.circular(24),
-                        ),
-                        child: Text(
+                      CircleAvatar(
+                        radius: 44,
+                        backgroundColor: const Color(0xFF2D6A4F),
+                        backgroundImage: user.profileImage != null &&
+                            user.profileImage!.isNotEmpty
+                            ? NetworkImage(user.profileImage!)
+                            : null,
+                        child: (user.profileImage == null ||
+                            user.profileImage!.isEmpty)
+                            ? Text(
                           user.name.isNotEmpty
                               ? user.name[0].toUpperCase()
                               : '?',
                           style: const TextStyle(
-                            fontSize: 34,
+                            fontSize: 32,
                             color: Colors.white,
                             fontWeight: FontWeight.w600,
                           ),
-                        ),
+                        )
+                            : null,
                       ),
                       const SizedBox(height: 20),
                       Text(
@@ -185,25 +189,7 @@ class HomeScreen extends StatelessWidget {
                         ),
                         title: const Text('Edit Profile'),
                         trailing: const Icon(Icons.chevron_right, size: 20),
-                        onTap: () async {
-                          final updatedUser = await Navigator.push<UserModel>(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) =>
-                                  ProfileEditScreen(user: user),
-                            ),
-                          );
-
-                          if (updatedUser != null && context.mounted) {
-                            Navigator.pushReplacement(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) =>
-                                    HomeScreen(user: updatedUser),
-                              ),
-                            );
-                          }
-                        },
+                        onTap: () => _openEditProfile(context),
                       ),
                       const Divider(height: 1, indent: 16, endIndent: 16),
                       ListTile(
