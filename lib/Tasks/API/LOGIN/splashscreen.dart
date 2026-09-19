@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter_series/Tasks/API/LOGIN/loginscreen.dart';
 import 'package:flutter_series/Tasks/API/LOGIN/homescreen.dart';
-import 'package:flutter_series/Tasks/API/LOGIN/session_manager.dart';
+import 'package:flutter_series/Tasks/API/LOGIN/sessionmanager.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
