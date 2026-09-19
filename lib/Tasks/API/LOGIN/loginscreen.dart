@@ -4,6 +4,7 @@ import 'package:flutter_series/Tasks/API/LOGIN/apiservice.dart';
 import 'package:flutter_series/Tasks/API/LOGIN/homescreen.dart';
 import 'package:flutter_series/Tasks/API/LOGIN/signupscreen.dart';
 import 'package:flutter_series/Tasks/API/LOGIN/forgotpass.dart';
+import 'package:flutter_series/Tasks/API/LOGIN/sessionmanager.dart';
 
 class LoginAPIScreen extends StatefulWidget {
   const LoginAPIScreen({super.key});
@@ -41,6 +42,7 @@ class _LoginAPIScreenState extends State<LoginAPIScreen> {
       if (!mounted) return;
 
       if (user != null) {
+        await SessionManager.saveSession(user);
         Navigator.pushReplacement(
           context,
           MaterialPageRoute(builder: (context) => HomeScreen(user: user)),
