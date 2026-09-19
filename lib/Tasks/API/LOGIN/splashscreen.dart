@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 import 'package:flutter_series/Tasks/API/LOGIN/loginscreen.dart';
+import 'package:flutter_series/Tasks/API/LOGIN/homescreen.dart';
+import 'package:flutter_series/Tasks/API/LOGIN/session_manager.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -13,18 +15,27 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-    _navigateToLogin();
+    _checkSessionAndNavigate();
   }
 
-  Future<void> _navigateToLogin() async {
+  Future<void> _checkSessionAndNavigate() async {
     await Future.delayed(const Duration(seconds: 2));
+
+    final user = await SessionManager.getSession();
 
     if (!mounted) return;
 
-    Navigator.pushReplacement(
-      context,
-      MaterialPageRoute(builder: (context) => const LoginAPIScreen()),
-    );
+    if (user != null) {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => HomeScreen(user: user)),
+      );
+    } else {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => const LoginAPIScreen()),
+      );
+    }
   }
 
   @override
