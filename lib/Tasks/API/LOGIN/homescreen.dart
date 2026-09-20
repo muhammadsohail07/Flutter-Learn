@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_series/Tasks/API/LOGIN/loginmodel.dart';
 import 'package:flutter_series/Tasks/API/LOGIN/editprofilescreen.dart';
+import 'package:flutter_series/Tasks/API/LOGIN/sessionmanager.dart';
+import 'package:flutter_series/Tasks/API/LOGIN/loginscreen.dart';
 
 class HomeScreen extends StatelessWidget {
   final UserModel user;
@@ -31,9 +33,18 @@ class HomeScreen extends StatelessWidget {
               ),
             ),
             TextButton(
-              onPressed: () {
-                Navigator.pop(context);
-                Navigator.pop(context);
+              onPressed: () async {
+                await SessionManager.clearSession();
+
+                if (!context.mounted) return;
+
+                Navigator.pushAndRemoveUntil(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const LoginAPIScreen(),
+                  ),
+                      (route) => false,
+                );
               },
               child: const Text(
                 'Logout',
@@ -58,6 +69,10 @@ class HomeScreen extends StatelessWidget {
     );
 
     if (updatedUser != null && context.mounted) {
+      await SessionManager.saveSession(updatedUser);
+
+      if (!context.mounted) return;
+
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(
@@ -115,26 +130,36 @@ class HomeScreen extends StatelessWidget {
                   ),
                   child: Column(
                     children: [
-                      CircleAvatar(
-                        radius: 44,
-                        backgroundColor: const Color(0xFF2D6A4F),
-                        backgroundImage: user.profileImage != null &&
-                            user.profileImage!.isNotEmpty
-                            ? NetworkImage(user.profileImage!)
-                            : null,
-                        child: (user.profileImage == null ||
-                            user.profileImage!.isEmpty)
-                            ? Text(
-                          user.name.isNotEmpty
-                              ? user.name[0].toUpperCase()
-                              : '?',
-                          style: const TextStyle(
-                            fontSize: 32,
-                            color: Colors.white,
-                            fontWeight: FontWeight.w600,
+                      Container(
+                        padding: const EdgeInsets.all(3),
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          border: Border.all(
+                            color: const Color(0xFF2D6A4F).withOpacity(0.15),
+                            width: 3,
                           ),
-                        )
-                            : null,
+                        ),
+                        child: CircleAvatar(
+                          radius: 44,
+                          backgroundColor: const Color(0xFF2D6A4F),
+                          backgroundImage: user.profileImage != null &&
+                              user.profileImage!.isNotEmpty
+                              ? NetworkImage(user.profileImage!)
+                              : null,
+                          child: (user.profileImage == null ||
+                              user.profileImage!.isEmpty)
+                              ? Text(
+                            user.name.isNotEmpty
+                                ? user.name[0].toUpperCase()
+                                : '?',
+                            style: const TextStyle(
+                              fontSize: 32,
+                              color: Colors.white,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          )
+                              : null,
+                        ),
                       ),
                       const SizedBox(height: 20),
                       Text(
@@ -183,23 +208,45 @@ class HomeScreen extends StatelessWidget {
                   child: Column(
                     children: [
                       ListTile(
-                        leading: const Icon(
-                          Icons.edit_outlined,
-                          color: Color(0xFF2D6A4F),
+                        leading: Container(
+                          padding: const EdgeInsets.all(8),
+                          decoration: BoxDecoration(
+                            color: const Color(0xFF2D6A4F).withOpacity(0.1),
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          child: const Icon(
+                            Icons.edit_outlined,
+                            color: Color(0xFF2D6A4F),
+                            size: 20,
+                          ),
                         ),
-                        title: const Text('Edit Profile'),
+                        title: const Text(
+                          'Edit Profile',
+                          style: TextStyle(fontWeight: FontWeight.w500),
+                        ),
                         trailing: const Icon(Icons.chevron_right, size: 20),
                         onTap: () => _openEditProfile(context),
                       ),
                       const Divider(height: 1, indent: 16, endIndent: 16),
                       ListTile(
-                        leading: const Icon(
-                          Icons.logout,
-                          color: Colors.red,
+                        leading: Container(
+                          padding: const EdgeInsets.all(8),
+                          decoration: BoxDecoration(
+                            color: Colors.red.withOpacity(0.1),
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          child: const Icon(
+                            Icons.logout,
+                            color: Colors.red,
+                            size: 20,
+                          ),
                         ),
                         title: const Text(
                           'Logout',
-                          style: TextStyle(color: Colors.red),
+                          style: TextStyle(
+                            color: Colors.red,
+                            fontWeight: FontWeight.w500,
+                          ),
                         ),
                         onTap: () {
                           _showLogoutDialog(context);
