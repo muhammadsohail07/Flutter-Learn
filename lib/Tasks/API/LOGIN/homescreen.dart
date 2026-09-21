@@ -14,14 +14,23 @@ class HomeScreen extends StatelessWidget {
       context: context,
       builder: (context) {
         return AlertDialog(
+          backgroundColor: const Color(0xFF151515),
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(16),
+            borderRadius: BorderRadius.circular(20),
           ),
           title: const Text(
             'Logout',
-            style: TextStyle(fontWeight: FontWeight.bold),
+            style: TextStyle(
+              color: Colors.white,
+              fontWeight: FontWeight.bold,
+            ),
           ),
-          content: const Text('Are you sure you want to logout?'),
+          content: Text(
+            'Are you sure you want to logout?',
+            style: TextStyle(
+              color: Colors.grey.shade400,
+            ),
+          ),
           actions: [
             TextButton(
               onPressed: () {
@@ -29,7 +38,9 @@ class HomeScreen extends StatelessWidget {
               },
               child: Text(
                 'Cancel',
-                style: TextStyle(color: Colors.grey.shade600),
+                style: TextStyle(
+                  color: Colors.grey.shade400,
+                ),
               ),
             ),
             TextButton(
@@ -49,8 +60,8 @@ class HomeScreen extends StatelessWidget {
               child: const Text(
                 'Logout',
                 style: TextStyle(
-                  color: Colors.red,
-                  fontWeight: FontWeight.w600,
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
                 ),
               ),
             ),
@@ -85,181 +96,351 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFF7F7F9),
+      backgroundColor: Colors.black,
+
       appBar: AppBar(
-        backgroundColor: Colors.transparent,
+        backgroundColor: Colors.black,
         elevation: 0,
+
         title: const Text(
-          'Home',
+          'HOME',
           style: TextStyle(
-            color: Colors.black87,
-            fontWeight: FontWeight.w600,
+            color: Colors.white,
+            fontSize: 17,
+            fontWeight: FontWeight.bold,
+            letterSpacing: 2,
           ),
         ),
-        iconTheme: const IconThemeData(color: Colors.black87),
+
+        centerTitle: true,
+
         actions: [
           IconButton(
-            icon: const Icon(Icons.edit_outlined),
+            icon: const Icon(
+              Icons.edit_outlined,
+              color: Colors.white,
+            ),
             onPressed: () => _openEditProfile(context),
           ),
+
+          const SizedBox(width: 8),
         ],
       ),
+
       body: SafeArea(
-        child: Center(
-          child: SingleChildScrollView(
-            padding: const EdgeInsets.symmetric(horizontal: 28),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                const SizedBox(height: 20),
-                Container(
-                  padding: const EdgeInsets.symmetric(
-                    vertical: 32,
-                    horizontal: 24,
+        child: SingleChildScrollView(
+          physics: const BouncingScrollPhysics(),
+
+          padding: const EdgeInsets.symmetric(
+            horizontal: 22,
+            vertical: 20,
+          ),
+
+          child: Column(
+            children: [
+              Container(
+                width: double.infinity,
+                padding: const EdgeInsets.all(28),
+
+                decoration: BoxDecoration(
+                  color: const Color(0xFF151515),
+                  borderRadius: BorderRadius.circular(24),
+
+                  border: Border.all(
+                    color: Colors.grey.shade800,
                   ),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(20),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black.withOpacity(0.05),
-                        blurRadius: 16,
-                        offset: const Offset(0, 6),
+                ),
+
+                child: Column(
+                  children: [
+                    Container(
+                      padding: const EdgeInsets.all(4),
+
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+
+                        border: Border.all(
+                          color: Colors.white,
+                          width: 2,
+                        ),
                       ),
-                    ],
-                  ),
-                  child: Column(
-                    children: [
-                      Container(
-                        padding: const EdgeInsets.all(3),
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          border: Border.all(
-                            color: const Color(0xFF2D6A4F).withOpacity(0.15),
-                            width: 3,
+
+                      child: CircleAvatar(
+                        radius: 58,
+
+                        backgroundColor: Colors.black,
+
+                        backgroundImage:
+                        user.profileImage != null &&
+                            user.profileImage!.isNotEmpty
+                            ? NetworkImage(user.profileImage!)
+                            : null,
+
+                        child: user.profileImage == null ||
+                            user.profileImage!.isEmpty
+                            ? Text(
+                          user.name.isNotEmpty
+                              ? user.name[0].toUpperCase()
+                              : '?',
+
+                          style: const TextStyle(
+                            fontSize: 40,
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
                           ),
-                        ),
-                        child: CircleAvatar(
-                          radius: 44,
-                          backgroundColor: const Color(0xFF2D6A4F),
-                          backgroundImage: user.profileImage != null &&
-                              user.profileImage!.isNotEmpty
-                              ? NetworkImage(user.profileImage!)
-                              : null,
-                          child: (user.profileImage == null ||
-                              user.profileImage!.isEmpty)
-                              ? Text(
-                            user.name.isNotEmpty
-                                ? user.name[0].toUpperCase()
-                                : '?',
-                            style: const TextStyle(
-                              fontSize: 32,
-                              color: Colors.white,
-                              fontWeight: FontWeight.w600,
-                            ),
-                          )
-                              : null,
-                        ),
+                        )
+                            : null,
                       ),
-                      const SizedBox(height: 20),
-                      Text(
-                        user.name,
-                        style: const TextStyle(
-                          fontSize: 22,
-                          fontWeight: FontWeight.w600,
-                          color: Colors.black87,
-                        ),
+                    ),
+
+                    const SizedBox(height: 22),
+
+                    Text(
+                      user.name,
+                      textAlign: TextAlign.center,
+
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontSize: 25,
+                        fontWeight: FontWeight.bold,
+                        letterSpacing: .5,
                       ),
-                      const SizedBox(height: 6),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Icon(
-                            Icons.email_outlined,
-                            size: 16,
-                            color: Colors.grey.shade500,
-                          ),
-                          const SizedBox(width: 6),
-                          Text(
+                    ),
+
+                    const SizedBox(height: 8),
+
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(
+                          Icons.email_outlined,
+                          size: 16,
+                          color: Colors.grey.shade500,
+                        ),
+
+                        const SizedBox(width: 7),
+
+                        Flexible(
+                          child: Text(
                             user.email,
+
+                            overflow: TextOverflow.ellipsis,
+
                             style: TextStyle(
-                              fontSize: 14,
-                              color: Colors.grey.shade600,
+                              color: Colors.grey.shade500,
+                              fontSize: 13,
                             ),
                           ),
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
-                const SizedBox(height: 20),
-                Container(
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(16),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black.withOpacity(0.04),
-                        blurRadius: 12,
-                        offset: const Offset(0, 4),
-                      ),
-                    ],
-                  ),
-                  child: Column(
-                    children: [
-                      ListTile(
-                        leading: Container(
-                          padding: const EdgeInsets.all(8),
-                          decoration: BoxDecoration(
-                            color: const Color(0xFF2D6A4F).withOpacity(0.1),
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          child: const Icon(
-                            Icons.edit_outlined,
-                            color: Color(0xFF2D6A4F),
-                            size: 20,
-                          ),
                         ),
-                        title: const Text(
-                          'Edit Profile',
-                          style: TextStyle(fontWeight: FontWeight.w500),
+                      ],
+                    ),
+
+                    const SizedBox(height: 25),
+
+                    Container(
+                      height: 1,
+                      color: Colors.grey.shade800,
+                    ),
+
+                    const SizedBox(height: 20),
+
+                    Row(
+                      mainAxisAlignment:
+                      MainAxisAlignment.center,
+                      children: [
+                        const Icon(
+                          Icons.verified_outlined,
+                          color: Colors.white,
+                          size: 18,
                         ),
-                        trailing: const Icon(Icons.chevron_right, size: 20),
-                        onTap: () => _openEditProfile(context),
-                      ),
-                      const Divider(height: 1, indent: 16, endIndent: 16),
-                      ListTile(
-                        leading: Container(
-                          padding: const EdgeInsets.all(8),
-                          decoration: BoxDecoration(
-                            color: Colors.red.withOpacity(0.1),
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          child: const Icon(
-                            Icons.logout,
-                            color: Colors.red,
-                            size: 20,
-                          ),
-                        ),
-                        title: const Text(
-                          'Logout',
+
+                        const SizedBox(width: 7),
+
+                        Text(
+                          'PROFILE ACTIVE',
                           style: TextStyle(
-                            color: Colors.red,
-                            fontWeight: FontWeight.w500,
+                            color: Colors.grey.shade400,
+                            fontSize: 11,
+                            fontWeight: FontWeight.bold,
+                            letterSpacing: 1.5,
                           ),
                         ),
-                        onTap: () {
-                          _showLogoutDialog(context);
-                        },
-                      ),
-                    ],
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+
+              const SizedBox(height: 20),
+
+              Container(
+                width: double.infinity,
+
+                decoration: BoxDecoration(
+                  color: const Color(0xFF151515),
+                  borderRadius: BorderRadius.circular(20),
+
+                  border: Border.all(
+                    color: Colors.grey.shade800,
                   ),
                 ),
-                const SizedBox(height: 20),
-              ],
-            ),
+
+                child: Column(
+                  children: [
+                    _menuItem(
+                      icon: Icons.person_outline,
+                      title: 'Profile',
+                      subtitle: 'View your profile',
+                      onTap: () {},
+                    ),
+
+                    _divider(),
+
+                    _menuItem(
+                      icon: Icons.edit_outlined,
+                      title: 'Edit Profile',
+                      subtitle: 'Update your information',
+                      onTap: () {
+                        _openEditProfile(context);
+                      },
+                    ),
+
+                    _divider(),
+
+                    _menuItem(
+                      icon: Icons.logout_outlined,
+                      title: 'Logout',
+                      subtitle: 'Sign out from your account',
+                      onTap: () {
+                        _showLogoutDialog(context);
+                      },
+                    ),
+                  ],
+                ),
+              ),
+
+              const SizedBox(height: 35),
+
+              Text(
+                'FLUTTER SERIES',
+
+                style: TextStyle(
+                  color: Colors.grey.shade700,
+                  fontSize: 10,
+                  fontWeight: FontWeight.bold,
+                  letterSpacing: 2,
+                ),
+              ),
+
+              const SizedBox(height: 8),
+
+              Text(
+                'BLACK & WHITE EDITION',
+
+                style: TextStyle(
+                  color: Colors.grey.shade800,
+                  fontSize: 9,
+                  letterSpacing: 1,
+                ),
+              ),
+
+              const SizedBox(height: 15),
+            ],
           ),
         ),
+      ),
+    );
+  }
+
+  Widget _menuItem({
+    required IconData icon,
+    required String title,
+    required String subtitle,
+    required VoidCallback onTap,
+  }) {
+    return InkWell(
+      onTap: onTap,
+
+      borderRadius: BorderRadius.circular(20),
+
+      child: Padding(
+        padding: const EdgeInsets.symmetric(
+          horizontal: 18,
+          vertical: 16,
+        ),
+
+        child: Row(
+          children: [
+            Container(
+              height: 46,
+              width: 46,
+
+              decoration: BoxDecoration(
+                color: Colors.black,
+                borderRadius: BorderRadius.circular(14),
+
+                border: Border.all(
+                  color: Colors.grey.shade800,
+                ),
+              ),
+
+              child: Icon(
+                icon,
+                color: Colors.white,
+                size: 21,
+              ),
+            ),
+
+            const SizedBox(width: 15),
+
+            Expanded(
+              child: Column(
+                crossAxisAlignment:
+                CrossAxisAlignment.start,
+
+                children: [
+                  Text(
+                    title,
+
+                    style: const TextStyle(
+                      color: Colors.white,
+                      fontSize: 15,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+
+                  const SizedBox(height: 4),
+
+                  Text(
+                    subtitle,
+
+                    style: TextStyle(
+                      color: Colors.grey.shade600,
+                      fontSize: 11,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+
+            Icon(
+              Icons.arrow_forward_ios,
+              color: Colors.grey.shade600,
+              size: 15,
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _divider() {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 18),
+
+      child: Divider(
+        height: 1,
+        color: Colors.grey.shade800,
       ),
     );
   }
