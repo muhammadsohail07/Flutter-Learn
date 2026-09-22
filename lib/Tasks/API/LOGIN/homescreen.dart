@@ -159,6 +159,15 @@ class HomeScreen extends StatelessWidget {
               ),
               const SizedBox(height: 4),
 
+              Text(
+                user.name.split(' ').first,
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 26,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+
               Container(
                 width: double.infinity,
                 padding: const EdgeInsets.all(28),
