@@ -148,6 +148,17 @@ class HomeScreen extends StatelessWidget {
 
           child: Column(
             children: [
+              Text(
+                _getGreeting(),
+                style: TextStyle(
+                  color: Colors.grey.shade500,
+                  fontSize: 13,
+                  fontWeight: FontWeight.w500,
+                  letterSpacing: 1,
+                ),
+              ),
+              const SizedBox(height: 4),
+
               Container(
                 width: double.infinity,
                 padding: const EdgeInsets.all(28),
@@ -163,6 +174,7 @@ class HomeScreen extends StatelessWidget {
 
                 child: Column(
                   children: [
+
                     Container(
                       padding: const EdgeInsets.all(4),
 
