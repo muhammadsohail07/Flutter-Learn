@@ -172,6 +172,20 @@ class ApiService {
     }
   }
   Future<UserModel?> getUserByEmail(String email) async {
+          try {
+        final record = await _fetchRecord();
+        final usersList = record['users'] as List<dynamic>;
+
+        for (var userJson in usersList) {
+          final user = UserModel.fromJson(userJson);
+          if (user.email == email) {
+            return user;
+          }
+        }
+        return null;
+      } catch (e) {
+        throw _mapError(e);
+      }
 
   }
 }
