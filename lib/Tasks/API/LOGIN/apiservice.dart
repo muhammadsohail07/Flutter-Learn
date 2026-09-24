@@ -171,4 +171,7 @@ class ApiService {
       throw _mapError(e);
     }
   }
+  Future<UserModel?> getUserByEmail(String email) async {
+
+  }
 }
