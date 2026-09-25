@@ -289,7 +289,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                           const SizedBox(width: 7),
                           Text(
-                            'PROFILE ACTIVE',
+                            'Profile Active',
                             style: TextStyle(
                               color: Colors.grey.shade400,
                               fontSize: 11,
