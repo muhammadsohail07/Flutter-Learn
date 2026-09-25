@@ -353,7 +353,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
                 const SizedBox(height: 8),
                 Text(
-                  'BLACK & WHITE EDITION',
+                  'FLUTTER EDITION',
                   style: TextStyle(
                     color: Colors.grey.shade800,
                     fontSize: 9,
