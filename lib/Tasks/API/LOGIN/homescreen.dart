@@ -362,7 +362,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
                 const SizedBox(height: 6),
                 Text(
-                  '© 2025 All Rights Reserved',
+                  '© 2026 All Rights Reserved',
                   style: TextStyle(
                     color: Colors.grey.shade800,
                     fontSize: 9,
