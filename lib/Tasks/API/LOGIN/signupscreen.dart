@@ -157,7 +157,21 @@ class _SignupScreenState extends State<SignupScreen>
                           width: 88,
                           height: 88,
                           alignment: Alignment.center,
-
+                          decoration: BoxDecoration(
+                            gradient: const LinearGradient(
+                              begin: Alignment.topLeft,
+                              end: Alignment.bottomRight,
+                              colors: [_primaryColor, _primaryColorDark],
+                            ),
+                            borderRadius: BorderRadius.circular(24),
+                            boxShadow: [
+                              BoxShadow(
+                                color: _primaryColor.withOpacity(0.35),
+                                blurRadius: 20,
+                                offset: const Offset(0, 10),
+                              ),
+                            ],
+                          ),
                           child: const Icon(Icons.person_add_alt_1,
                               size: 40, color: Colors.white),
                         ),
