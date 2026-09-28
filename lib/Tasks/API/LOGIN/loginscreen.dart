@@ -299,7 +299,7 @@ class _LoginAPIScreenState extends State<LoginAPIScreen>
                                 ),
                               )
                                   : const Text(
-                                'LOGIN',
+                                'Login',
                                 key: ValueKey('label'),
                                 style: TextStyle(
                                   fontSize: 16,
