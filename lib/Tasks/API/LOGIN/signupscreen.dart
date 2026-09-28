@@ -226,7 +226,7 @@ class _SignupScreenState extends State<SignupScreen>
                           },
                           decoration: _inputDecoration(
                             label: 'Email',
-                            hint: 'test@gmail.com',
+                            hint: 'example@gmail.com',
                             icon: Icons.email_outlined,
                           ),
                         ),
