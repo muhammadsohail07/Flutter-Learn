@@ -230,7 +230,7 @@ class _LoginAPIScreenState extends State<LoginAPIScreen>
                           },
                           decoration: _inputDecoration(
                             label: 'Password',
-                            hint: '123456',
+                            hint: '111111',
                             icon: Icons.lock_outline,
                             suffixIcon: IconButton(
                               icon: Icon(
