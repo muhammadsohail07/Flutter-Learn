@@ -211,7 +211,7 @@ class _LoginAPIScreenState extends State<LoginAPIScreen>
                           },
                           decoration: _inputDecoration(
                             label: 'Email',
-                            hint: 'test@gmail.com',
+                            hint: 'example@gmail.com',
                             icon: Icons.email_outlined,
                           ),
                         ),
